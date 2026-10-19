@@ -1,0 +1,58 @@
+Connecting to 127.0.0.1
+Can't use SSL_get_servername
+depth=0 CN=222835-cliente-servidor.duckdns.org
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN=222835-cliente-servidor.duckdns.org
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:CN=222835-cliente-servidor.duckdns.org
+   i:CN=222835-cliente-servidor.duckdns.org
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 19 09:57:29 2026 GMT; NotAfter: Oct 19 09:57:29 2027 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIDPTCCAiWgAwIBAgIUcs0iuGi+H1HxH1hAMGRxXRqFc+EwDQYJKoZIhvcNAQEL
+BQAwLjEsMCoGA1UEAwwjMjIyODM1LWNsaWVudGUtc2Vydmlkb3IuZHVja2Rucy5v
+cmcwHhcNMjYxMDE5MDk1NzI5WhcNMjcxMDE5MDk1NzI5WjAuMSwwKgYDVQQDDCMy
+MjI4MzUtY2xpZW50ZS1zZXJ2aWRvci5kdWNrZG5zLm9yZzCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBAMhaLYF65xo11QBrC6fiiiQrXk/o3ww9aFS7k5nd
+bfI00OvnnwwXtPCiIbn2nGItl/+0q+pFXoREu2H0XZl7M1/cgBwlbTq5nYd4k8Q9
+xomuO05lz0+SJ+uPq0+UUXbFPBUHAVS4vdo76uco/PuLZ9JEAaywoHoMZTBunIMA
+tBTeijx2Ak75RpZF49DJ29VblzWg3WVTBK4c68EyQ4tql7LehY1I4mzhtuspDDkC
+uvYP/HpFlS1lFk4obytq5G4h+pK+jpZV8icCuMibJBF7rh9rZi7j08aXnNt49lkh
+Wkk4MBi6CvPIDipdsM9KcN1t1PQjIPKGYbEsDWYI7vYvdS8CAwEAAaNTMFEwHQYD
+VR0OBBYEFKsbVGvwJAVrEOpYaADT4t6M+k4OMB8GA1UdIwQYMBaAFKsbVGvwJAVr
+EOpYaADT4t6M+k4OMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEB
+AFhLozJsQ/yEZL4RTaFn920pbM71sMhIPPIrUdJlIe2w0r1m9C4guvrsVxh323yp
+aYjlR5hyaNQd+aPt+NmnKGO7drMlEOoH7PggnmoYbUsJ5cMpinpjH5QKzj/763+/
+/Wtp06DoZMa9VH4uvlrW6NQ47LhT5leu/2t0cebhbkaKaKNv9C72EpNdxLP3JRvs
+P/mSoU9A2FU/c6wm7iPBK2JccbYYZG+VOaA/INTfXnavu732lDoGTITp5XNtCKA3
+GqmpspmAj3l2aKcnAJ8JurcFAemPGS73of3R7wRUx8yvmqGh2Q5/2Ib3bFj59EYB
+y/Kt6yyrYoEPezxv/Hv6Y/I=
+-----END CERTIFICATE-----
+subject=CN=222835-cliente-servidor.duckdns.org
+issuer=CN=222835-cliente-servidor.duckdns.org
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 2477 bytes and written 1613 bytes
+Verification error: self-signed certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 18 (self-signed certificate)
+---
+DONE

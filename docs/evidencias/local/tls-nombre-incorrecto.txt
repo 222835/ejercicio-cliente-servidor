@@ -1,0 +1,73 @@
+Connecting to 127.0.0.1
+Can't use SSL_get_servername
+depth=0 C=MX, O=Proyecto CS, CN=otro-servidor.com
+verify error:num=62:hostname mismatch
+verify return:1
+depth=2 C=MX, O=Proyecto CS, CN=Proyecto Root CA
+verify return:1
+depth=1 C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+verify return:1
+depth=0 C=MX, O=Proyecto CS, CN=otro-servidor.com
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:C=MX, O=Proyecto CS, CN=otro-servidor.com
+   i:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 19 10:02:55 2026 GMT; NotAfter: Oct 19 10:02:55 2027 GMT
+ 1 s:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   i:C=MX, O=Proyecto CS, CN=Proyecto Root CA
+   a:PKEY: RSA, 4096 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 19 09:51:54 2026 GMT; NotAfter: Oct 18 09:51:54 2031 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEpTCCAo2gAwIBAgIUD63ZOQoaoh3f5EFf23EnlBrrhUUwDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCTVgxFDASBgNVBAoMC1Byb3llY3RvIENTMSEwHwYDVQQD
+DBhQcm95ZWN0byBJbnRlcm1lZGlhdGUgQ0EwHhcNMjYxMDE5MTAwMjU1WhcNMjcx
+MDE5MTAwMjU1WjA/MQswCQYDVQQGEwJNWDEUMBIGA1UECgwLUHJveWVjdG8gQ1Mx
+GjAYBgNVBAMMEW90cm8tc2Vydmlkb3IuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC
+AQ8AMIIBCgKCAQEAs7dUNnQ89mK315inKUXXkte9wtob7H7fE3kH28gsQEv5yCW9
+x5mWi3Y1iVBxZKGOD+xHAdl1+PmxCuMUcQaXj0LyGfByQlp4w6Bi+8/xw23ImCXl
+2EUPIKrpAX/IJe2i/4Tath6SQqsu9Hllu7oTtkDQCyNbGIU8lVcUR9DMLfAOFIXE
+xEFxBhcpCjmoAvZMR+3wneamxIdCouI2be8qDABNayzd7B1ZWhF1ptp9uwNeWX9R
+IugWEcIN0f+nXpW2+Vf150x4gBR2G4SMfZHwPtuqIQ46xD97p8lBFH0s3t5IxoXK
+0HPdquyDzNyMqiMnq1FvTFuRdzBP+taY3ICinQIDAQABo4GRMIGOMAkGA1UdEwQC
+MAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMBwGA1UdEQQV
+MBOCEW90cm8tc2Vydmlkb3IuY29tMB0GA1UdDgQWBBQxq5YpQttg/zjg+SSuPowj
+9D7vRDAfBgNVHSMEGDAWgBR6ebUvT4LNyYjBK9RKGbAnY44mkTANBgkqhkiG9w0B
+AQsFAAOCAgEALVfJCHqIguTymF66LZT+fcu0mJ8/kfDcduYUy0nx5c+SvjnrpFHq
+X8OO0DwUAs8aP3V+yRcBZCT+3E0NU5A5/h/ESsKJVwfndMZzGpPD8MLKY4mG+64T
+mGWEGKb7gte50NgZIXMsPsZVmBGqa85lt7OZe+sz+Yw2Yh2LOR1lAJU/m6all6LL
+ZZNvoByLHCc3MucEGnwxcBoV7jLdHO3RUKuP3skmYDBUT00UnBCZq0IoURy27at0
+Jz7ARyKh45bexuR/fpVh/DAB1tvNVH30PkErE6V+cYqGiko/tATMkinbDBRoOSX1
+miV5/Y1/96tXlDU/cpBx5uE242qKv21Sxw/cxTQpXNr3gDBoVcpGE2Jl7Sn1WWlB
+p5qzSmwZFbCYrAYYlr8i9wTdI9+x8EkKj26+1074gJrHexQuCFw2m4fRQ7mhUfZT
+1I4xoL+DhNQ3tRYHIHOy07fHf0+XygLWaX8jk03yIN7qQNgcS1k4MG8S1OWwVLQM
+tPW9PsvSUVlrakeMJhoW6AgoGeowYD8ckAMHBJoG5PQJkumSN/Y3IsbuWr9YkQ62
+hUjojH8vfOYqq49YX5hc/52a3+WyLNYo4Y+G3pI1c3kRdkAp6K/No4Mu9iZNb7a8
+YFFAAam1czW1Yyx39IOgOhHMv5qpbiww7D4/SxeyVD/xd08p9BlKjQA=
+-----END CERTIFICATE-----
+subject=C=MX, O=Proyecto CS, CN=otro-servidor.com
+issuer=C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 4246 bytes and written 1613 bytes
+Verification error: hostname mismatch
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 62 (hostname mismatch)
+---
+DONE

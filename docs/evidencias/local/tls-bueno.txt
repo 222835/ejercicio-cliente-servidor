@@ -1,0 +1,72 @@
+Connecting to 127.0.0.1
+Can't use SSL_get_servername
+depth=2 C=MX, O=Proyecto CS, CN=Proyecto Root CA
+verify return:1
+depth=1 C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+verify return:1
+depth=0 C=MX, O=Proyecto CS, CN=222835-cliente-servidor.duckdns.org
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:C=MX, O=Proyecto CS, CN=222835-cliente-servidor.duckdns.org
+   i:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 19 09:56:14 2026 GMT; NotAfter: Oct 19 09:56:14 2027 GMT
+ 1 s:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   i:C=MX, O=Proyecto CS, CN=Proyecto Root CA
+   a:PKEY: RSA, 4096 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 19 09:51:54 2026 GMT; NotAfter: Oct 18 09:51:54 2031 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEyTCCArGgAwIBAgIUD63ZOQoaoh3f5EFf23EnlBrrhUMwDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCTVgxFDASBgNVBAoMC1Byb3llY3RvIENTMSEwHwYDVQQD
+DBhQcm95ZWN0byBJbnRlcm1lZGlhdGUgQ0EwHhcNMjYxMDE5MDk1NjE0WhcNMjcx
+MDE5MDk1NjE0WjBRMQswCQYDVQQGEwJNWDEUMBIGA1UECgwLUHJveWVjdG8gQ1Mx
+LDAqBgNVBAMMIzIyMjgzNS1jbGllbnRlLXNlcnZpZG9yLmR1Y2tkbnMub3JnMIIB
+IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy54/on/8sOKpkxiaxSvBUYdR
+TB76EoURiMm31+rCn6fYv2g6eTBakq/PkFihvfX83hAzglZSk6PlMa62TT0BwEwh
+VpnBJIdak5eIoW8/vxwtRkRJF1Zk6JGxZ/tt4UkxHHfBtUL845RLXbAxR6XddCAN
++USSSs11PRxKNU7lVFeXA2pH0+B1Ar24Drb6MiFcnaURl74VcpmGI1VSMaRHOVyl
+Yoyx98+lH/rXvW16p7uOV89hDCWhoyTXVQ93ppIFzZxzgpsWZ/zUT/WZ5t6up5bd
+Ry5E/V8FNOv8cUHBCvjb2dS4CqID+zx6bXDe2iPmzW3bTXN6cj8kzccEBN43BQID
+AQABo4GjMIGgMAkGA1UdEwQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG
+CCsGAQUFBwMBMC4GA1UdEQQnMCWCIzIyMjgzNS1jbGllbnRlLXNlcnZpZG9yLmR1
+Y2tkbnMub3JnMB0GA1UdDgQWBBTVSUOO3tZ9Eaf9EP6+zvZ2Jj2tFzAfBgNVHSME
+GDAWgBR6ebUvT4LNyYjBK9RKGbAnY44mkTANBgkqhkiG9w0BAQsFAAOCAgEAQBA8
+m19GtIESOGkkthtaSnMcsoEjs9EOzT6PNsifPEjgrGYj7M4tHIn34YacN0Jfbvvn
+qO3vaQZduVf01TjsDAousSQjCS1NIAniarkF1FXZexo+UHxfVVJxYxO8mlG+7KmL
+tWlcdKAna2vytr1jlOS4hyuIkN00Vq4RpKaZd6dPIlJnx7ueaXGrmX7+csB2z3+r
+fmq4dEr1GLmFilYd3kMD1Hc5L7YlplG5+5JkHCnAhr0ViXonb7yGTW0DofZKaxN/
+5xuJ7/GRubUtw3zQmcCdzrPYlIrHOt6PpsvurDtxa3nBfYexVlGVTqJibldTV9oh
+DcxhLLMFPpwcPMVLHjKh5FDwd3W+VCp3tb+SPRekfwYLfmWNsoIS9NEZVtBaW38q
+DU0A46WNBYFPJ2emmbFvFh6e6TpFzy4PADbmcLeybGJi87vs0nAbd4nOcdYbB2NJ
+KIB5W5o7vbu8mgy6RL3F9H48SS8HyoFI2ipflVrc1SmZs84f5tSXLCnblbzQGMjr
+OJFL0CFd+4VgYFpyJPvv/x1iJZy+V/Kt4FjbNhhNtH09AcTe7tIXd31EDxrgO+R+
+iFTItlgxGPUR6GbngGC4F1tir6+zA/gPlxo6dH3SNcZxqyDycJ68pZmIHwTL/m2F
+yv5dj8OMIU7M4L5AWz9UherxzbJqmJ0gZwj0tWs=
+-----END CERTIFICATE-----
+subject=C=MX, O=Proyecto CS, CN=222835-cliente-servidor.duckdns.org
+issuer=C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 4282 bytes and written 1613 bytes
+Verification: OK
+Verified peername: 222835-cliente-servidor.duckdns.org
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+DONE

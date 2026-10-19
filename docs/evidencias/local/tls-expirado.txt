@@ -1,0 +1,75 @@
+Connecting to 127.0.0.1
+Can't use SSL_get_servername
+depth=2 C=MX, O=Proyecto CS, CN=Proyecto Root CA
+verify return:1
+depth=1 C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+verify return:1
+depth=0 CN=222835-cliente-servidor.duckdns.org
+verify error:num=10:certificate has expired
+notAfter=Jan 31 06:00:00 2024 GMT
+verify return:1
+depth=0 CN=222835-cliente-servidor.duckdns.org
+notAfter=Jan 31 06:00:00 2024 GMT
+verify return:1
+CONNECTED(00000003)
+---
+Certificate chain
+ 0 s:CN=222835-cliente-servidor.duckdns.org
+   i:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   a:PKEY: RSA, 2048 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Jan  1 06:00:00 2024 GMT; NotAfter: Jan 31 06:00:00 2024 GMT
+ 1 s:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   i:C=MX, O=Proyecto CS, CN=Proyecto Root CA
+   a:PKEY: RSA, 4096 (bit); sigalg: sha256WithRSAEncryption
+   v:NotBefore: Oct 19 09:51:54 2026 GMT; NotAfter: Oct 18 09:51:54 2031 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEpjCCAo6gAwIBAgIUD63ZOQoaoh3f5EFf23EnlBrrhUQwDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCTVgxFDASBgNVBAoMC1Byb3llY3RvIENTMSEwHwYDVQQD
+DBhQcm95ZWN0byBJbnRlcm1lZGlhdGUgQ0EwHhcNMjQwMTAxMDYwMDAwWhcNMjQw
+MTMxMDYwMDAwWjAuMSwwKgYDVQQDDCMyMjI4MzUtY2xpZW50ZS1zZXJ2aWRvci5k
+dWNrZG5zLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKtiTcqa
+oECUNjqRpd+w6P41cC5HrLg97WXZQ3a1qlLUaPCDKtmJ+A+TbtrQGJTWrHK7IJ1P
+pBeIE7LdL/fam5ipV1VOyzYx0/gefexWu2/JTZpRq/MJXll9BFI8hjLtseC/7iDq
+fhL6t5tmRdRcamqlRmRnnz+dNV1v9FCakd5Oo0L5cm8Gp/j1HJ92HZaGtuyg8v86
+fcs6SOgQt0U10D2ZKgyDuNMhy8rFlwwOKRRIdyqUdZ8F9uP/iqYcIedZqFOIXlwi
+H3sjyEedn2AprHgUJRHkbLzKd7KeferIv3dBUyDBsexgbUGH6E4N+WyTgPuC0pld
+hZH4TYzSNlBpgbECAwEAAaOBozCBoDAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIF
+oDATBgNVHSUEDDAKBggrBgEFBQcDATAuBgNVHREEJzAlgiMyMjI4MzUtY2xpZW50
+ZS1zZXJ2aWRvci5kdWNrZG5zLm9yZzAdBgNVHQ4EFgQUW3CO+7g46sfZOcfrRs7I
+ZHoBztwwHwYDVR0jBBgwFoAUenm1L0+CzcmIwSvUShmwJ2OOJpEwDQYJKoZIhvcN
+AQELBQADggIBAIkf6ur+IyXvXG7QgnnGd640rp68dtwpPlQXeEEf+8nGSpMRCq4P
+brq+SDoxipK/58EP0PC+BToQSsd5NBW0mLewDhwqHw7OmzCEec8NGtcwS8KFbTmE
+Y2ml8KwhsthJ2JltG500Ab/R4xsvBV/OdEtZu9pOx9GhRBZw4HY1levTWFySuzQi
+T9siCACrY0hKNzJ19hjKQIsvKOvc1v37SJ581S0aSsUB7mORaiU1wt5VGaklxYvP
+RRkgIGJd9HnGNY4TpjHLFwb8Pir4EIGRgD343ZSjyPpH2vdJF2Uft0jBysKwCr7G
+7RDgi9Jiua4NxXNS+h86b+UadBZ4FXFrCIwZOuwT0vx4OATyfE752EfyCa2Id56j
+PIlHbJe4Hi3baomfv2+negCjjtDrMxSNtH5vXGY+hwkNg8Vl/jPB6HJgEd12dRZI
+JeW3NNa6qKxm31MykDthyWl/Aj5e5YexJvoSFN4VNRFuSvcKgo6EvzvUzxHHsz16
+On1tuknG9d8Z4sw65q0LIFwggcqPbvRcuNj6hXQK3xU0608XZRLEvH0s5ZfZDJWq
+5pm6ude2fh8TTRTWl2bChsrUzHCy7jQkU5yMLH7A/TQuYbDUhknjLT2Li26pdwF5
+iobjpCycG9pzYuK5HtgP891xH48G6KarXQJMOPvnvo26szJUBt/uilF0
+-----END CERTIFICATE-----
+subject=CN=222835-cliente-servidor.duckdns.org
+issuer=C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: rsa_pss_rsae_sha256
+Negotiated TLS1.3 group: X25519MLKEM768
+---
+SSL handshake has read 4247 bytes and written 1613 bytes
+Verification error: certificate has expired
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Protocol: TLSv1.3
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 10 (certificate has expired)
+---
+DONE

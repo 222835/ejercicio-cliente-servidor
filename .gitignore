@@ -218,3 +218,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#PKI
+pki/root/*.key
+pki/intermedia/*.key
+pki/servidor/*.key
+pki/malos/ca-falsa/*.key
+*.srl
+*.csr
