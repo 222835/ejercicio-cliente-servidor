@@ -60,7 +60,7 @@ Los eventos se guardan en `logs/eventos.jsonl`.
 
 ## IPSec
 
-> Parte 3 · Adan Oswaldo Fraire Lopez · Código en `ipsec/ipsec.py`
+> Parte 3 · Adan Oswaldo Fraire Lopez · Código en `ipsec/ipsec.py` · Detalle completo en [`README-IPSec.md`](README-IPSec.md)
 
 IPSec se **simula** en Python con la librería `cryptography`. No modifica paquetes reales del sistema operativo, pero reproduce los elementos de ESP:
 

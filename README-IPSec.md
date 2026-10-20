@@ -1,7 +1,7 @@
 # Parte 3: Simulación de IPSec (Capa de Red)
 
 **Desarrollador:** Adán  
-**Módulo:** `ipsec.py`
+**Módulo:** `ipsec/ipsec.py`
 
 ---
 
@@ -19,6 +19,7 @@ Para mitigar los ataques de *Replay* (donde un atacante intercepta un paquete v�
 * Cada paquete saliente recibe un número de secuencia único y correlativo.
 * El receptor rastrea el número de secuencia más alto validado (`highest_seq`) y mantiene un registro en memoria de los últimos 64 paquetes recibidos.
 * Si llega un paquete con un número de secuencia duplicado o un número que quedó rezagado fuera del límite de la ventana, es clasificado como tráfico malicioso y es rechazado instantáneamente.
+* El método `recibir()` revisa la ventana, verifica la integridad con AES-GCM y solo entonces marca el número de secuencia como recibido. Así, un paquete falsificado no puede ocupar el número de un paquete legítimo y provocar que este se rechace.
 
 ---
 
@@ -50,15 +51,15 @@ Al ser una simulación educativa en Python enfocada en demostrar la teoría de r
 
 Para ejecutar las pruebas aisladas de este módulo sin necesidad de iniciar la VPN completa, asegúrese de tener instalado Python 3.8+ y ejecute:
 
-**Instalación de dependencias:**
+**Instalación de dependencias** (desde la raíz del repo, con el entorno virtual activo):
 ```bash
-pip install cryptography pytest rich
+pip install -r requirements.txt
 ```
 
 ### 4.1. Laboratorio de Pruebas Automatizadas (Pytest)
 Ejecute el marco de pruebas para validar la lógica matemática y de seguridad:
 ```bash
-python -m pytest test_ipsec.py -v
+python -m pytest tests/test_ipsec.py -v
 ```
 *Las pruebas verifican el correcto encapsulamiento en ambos modos, la efectividad del rechazo anti-replay y la correcta detección de paquetes con el payload alterado maliciosamente.*
 
