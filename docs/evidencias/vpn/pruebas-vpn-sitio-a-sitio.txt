@@ -1,28 +1,27 @@
 # Comando: python -m pytest -v tests/test_sitio_a_sitio.py
-# Fecha:   2026-10-19 19:08:58 -0600
-# Commit:  0e1bf4e
-# Python:  Python 3.13.16
+# Fecha:   2026-10-19 19:10:55 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
 
-====================================================== test session starts =======================================================
-platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.7.0 -- /usr/bin/python3
+====================================================================================================== test session starts ======================================================================================================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0 -- /home/nice/ejercicio-cliente-servidor/.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /home/claude/ejercicio-cliente-servidor
-plugins: platformdirs-4.12.2, anyio-4.15.1
+rootdir: /home/nice/ejercicio-cliente-servidor
 collecting ... collected 14 items
 
-tests/test_sitio_a_sitio.py::test_trafico_entre_sitios PASSED                                                              [  7%]
-tests/test_sitio_a_sitio.py::test_trafico_en_ambos_sentidos PASSED                                                         [ 14%]
-tests/test_sitio_a_sitio.py::test_internet_solo_ve_ips_de_gateways PASSED                                                  [ 21%]
-tests/test_sitio_a_sitio.py::test_psk_distinta_no_establece_tunel PASSED                                                   [ 28%]
-tests/test_sitio_a_sitio.py::test_replay_rechazado PASSED                                                                  [ 35%]
-tests/test_sitio_a_sitio.py::test_paquete_alterado_rechazado PASSED                                                        [ 42%]
-tests/test_sitio_a_sitio.py::test_paquete_alterado_no_consume_secuencia PASSED                                             [ 50%]
-tests/test_sitio_a_sitio.py::test_paquetes_fuera_de_orden_dentro_de_ventana PASSED                                         [ 57%]
-tests/test_sitio_a_sitio.py::test_destino_sin_tunel PASSED                                                                 [ 64%]
-tests/test_sitio_a_sitio.py::test_spi_desconocido PASSED                                                                   [ 71%]
-tests/test_sitio_a_sitio.py::test_usa_el_modo_tunel_de_la_parte3 PASSED                                                    [ 78%]
-tests/test_sitio_a_sitio.py::test_paquete_viejo_fuera_de_ventana PASSED                                                    [ 85%]
-tests/test_sitio_a_sitio.py::test_numero_de_secuencia_alterado PASSED                                                      [ 92%]
-tests/test_sitio_a_sitio.py::test_paquete_falso_no_bloquea_al_legitimo PASSED                                              [100%]
+tests/test_sitio_a_sitio.py::test_trafico_entre_sitios PASSED                                                                                                                                                             [  7%]
+tests/test_sitio_a_sitio.py::test_trafico_en_ambos_sentidos PASSED                                                                                                                                                        [ 14%]
+tests/test_sitio_a_sitio.py::test_internet_solo_ve_ips_de_gateways PASSED                                                                                                                                                 [ 21%]
+tests/test_sitio_a_sitio.py::test_psk_distinta_no_establece_tunel PASSED                                                                                                                                                  [ 28%]
+tests/test_sitio_a_sitio.py::test_replay_rechazado PASSED                                                                                                                                                                 [ 35%]
+tests/test_sitio_a_sitio.py::test_paquete_alterado_rechazado PASSED                                                                                                                                                       [ 42%]
+tests/test_sitio_a_sitio.py::test_paquete_alterado_no_consume_secuencia PASSED                                                                                                                                            [ 50%]
+tests/test_sitio_a_sitio.py::test_paquetes_fuera_de_orden_dentro_de_ventana PASSED                                                                                                                                        [ 57%]
+tests/test_sitio_a_sitio.py::test_destino_sin_tunel PASSED                                                                                                                                                                [ 64%]
+tests/test_sitio_a_sitio.py::test_spi_desconocido PASSED                                                                                                                                                                  [ 71%]
+tests/test_sitio_a_sitio.py::test_usa_el_modo_tunel_de_la_parte3 PASSED                                                                                                                                                   [ 78%]
+tests/test_sitio_a_sitio.py::test_paquete_viejo_fuera_de_ventana PASSED                                                                                                                                                   [ 85%]
+tests/test_sitio_a_sitio.py::test_numero_de_secuencia_alterado PASSED                                                                                                                                                     [ 92%]
+tests/test_sitio_a_sitio.py::test_paquete_falso_no_bloquea_al_legitimo PASSED                                                                                                                                             [100%]
 
-======================================================= 14 passed in 0.12s =======================================================
+====================================================================================================== 14 passed in 0.06s =======================================================================================================

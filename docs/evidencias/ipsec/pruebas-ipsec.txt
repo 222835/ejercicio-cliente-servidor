@@ -1,21 +1,20 @@
 # Comando: python -m pytest -v tests/test_ipsec.py
-# Fecha:   2026-10-19 19:09:06 -0600
-# Commit:  0e1bf4e
-# Python:  Python 3.13.16
+# Fecha:   2026-10-19 19:10:57 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
 
-====================================================== test session starts =======================================================
-platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.7.0 -- /usr/bin/python3
+====================================================================================================== test session starts ======================================================================================================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0 -- /home/nice/ejercicio-cliente-servidor/.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /home/claude/ejercicio-cliente-servidor
-plugins: platformdirs-4.12.2, anyio-4.15.1
+rootdir: /home/nice/ejercicio-cliente-servidor
 collecting ... collected 7 items
 
-tests/test_ipsec.py::test_modo_transporte_cifrado_y_descifrado PASSED                                                      [ 14%]
-tests/test_ipsec.py::test_modo_tunel_cifrado_y_descifrado PASSED                                                           [ 28%]
-tests/test_ipsec.py::test_alteracion_paquete_falla PASSED                                                                  [ 42%]
-tests/test_ipsec.py::test_anti_replay_rechaza_duplicados_y_viejos PASSED                                                   [ 57%]
-tests/test_ipsec.py::test_recibir_paquete_legitimo_y_rechazar_replay PASSED                                                [ 71%]
-tests/test_ipsec.py::test_paquete_falso_no_consume_el_numero_de_secuencia PASSED                                           [ 85%]
-tests/test_ipsec.py::test_secuencia_cero_invalida PASSED                                                                   [100%]
+tests/test_ipsec.py::test_modo_transporte_cifrado_y_descifrado PASSED                                                                                                                                                     [ 14%]
+tests/test_ipsec.py::test_modo_tunel_cifrado_y_descifrado PASSED                                                                                                                                                          [ 28%]
+tests/test_ipsec.py::test_alteracion_paquete_falla PASSED                                                                                                                                                                 [ 42%]
+tests/test_ipsec.py::test_anti_replay_rechaza_duplicados_y_viejos PASSED                                                                                                                                                  [ 57%]
+tests/test_ipsec.py::test_recibir_paquete_legitimo_y_rechazar_replay PASSED                                                                                                                                               [ 71%]
+tests/test_ipsec.py::test_paquete_falso_no_consume_el_numero_de_secuencia PASSED                                                                                                                                          [ 85%]
+tests/test_ipsec.py::test_secuencia_cero_invalida PASSED                                                                                                                                                                  [100%]
 
-======================================================= 7 passed in 0.07s ========================================================
+======================================================================================================= 7 passed in 0.03s =======================================================================================================

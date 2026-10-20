@@ -1,9 +1,9 @@
 # Comando: python demo_vpn.py --sitio
-# Fecha:   2026-10-19 19:09:02 -0600
-# Commit:  0e1bf4e
-# Python:  Python 3.13.16
+# Fecha:   2026-10-19 19:10:56 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
 
-────────────────────────────────────────────────────── 2. VPN sitio a sitio ──────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────── 2. VPN sitio a sitio ──────────────────────────────────────────────────────────────────────────────────────────────────────
   [10.1.0.0/24] ── GW-Matriz 198.51.100.1 ══[ túnel IPSec ]══ 203.0.113.1 GW-Sucursal ── [10.2.0.0/24]
 
   ✘ Gateway impostor: GW-Falso no pudo autenticarse (PSK distinta)
@@ -14,8 +14,8 @@
 ┃ Punto                         ┃ Origen       ┃ Destino     ┃ Contenido                                           ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ Red matriz (antes del GW)     │ 10.1.0.5     │ 10.2.0.7    │ Reporte de ventas Q3                                │
-│ Internet (lo que vería        │ 198.51.100.1 │ 203.0.113.1 │ ESP spi=0xa12d6210 seq=1                            │
-│ un sniffer)                   │              │             │ f19f04231c6c1a3295dba5b17df8efc5d1dfea95ac4445b2... │
+│ Internet (lo que vería        │ 198.51.100.1 │ 203.0.113.1 │ ESP spi=0xa41d294 seq=1                             │
+│ un sniffer)                   │              │             │ 7fac62c8d07cc9f6425d1c2a72e262bc479c707be2809650... │
 │ Red sucursal (después del GW) │ 10.1.0.5     │ 10.2.0.7    │ Reporte de ventas Q3                                │
 └───────────────────────────────┴──────────────┴─────────────┴─────────────────────────────────────────────────────┘
 
@@ -23,23 +23,20 @@ Ataques
   ✘ Reenvío del mismo paquete: Replay detectado: seq=1 ya recibido o fuera de la ventana
   ✘ Paquete modificado en tránsito: Integridad fallida: el paquete fue alterado
   ✘ Destino fuera de la VPN: No hay túnel hacia 8.8.8.8
-────────────────────────────────────────── 4. Registro de eventos (logs/eventos.jsonl) ───────────────────────────────────────────
-┏━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ hora     ┃ componente ┃ evento                ┃ detalle                                                                        ┃
-┡━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ 01:09:02 │ vpn_s2s    │ negociacion_tunel     │ gateway=GW-Matriz, par=GW-Sucursal, ip_local=198.51.100.1, ip_par=203.0.113.1  │
-│ 01:09:02 │ vpn_s2s    │ tunel_establecido     │ gateway=GW-Matriz, par=GW-Sucursal, red_local=10.1.0.0/24,                     │
-│          │            │                       │ red_remota=10.2.0.0/24                                                         │
-│ 01:09:02 │ ipsec      │ paquete_cifrado       │ modo=tunel, spi=2704106000, secuencia=1                                        │
-│ 01:09:02 │ vpn_s2s    │ paquete_enviado_tunel │ gateway=GW-Matriz, ip_origen=10.1.0.5, ip_destino=10.2.0.7, spi=0xa12d6210     │
-│ 01:09:02 │ vpn_s2s    │ paquete_entregado     │ gateway=GW-Sucursal, ip_origen=10.1.0.5, ip_destino=10.2.0.7, seq=1            │
-│ 01:09:02 │ ipsec      │ replay_detectado      │ spi=2704106000, motivo=Paquete duplicado, secuencia=1                          │
-│ 01:09:02 │ vpn_s2s    │ replay_detectado      │ gateway=GW-Sucursal, spi=0xa12d6210, seq=1, motivo=Replay detectado: seq=1 ya  │
-│          │            │                       │ recibido o fuera de la ventana                                                 │
-│ 01:09:02 │ ipsec      │ paquete_cifrado       │ modo=tunel, spi=2704106000, secuencia=2                                        │
-│ 01:09:02 │ vpn_s2s    │ paquete_enviado_tunel │ gateway=GW-Matriz, ip_origen=10.1.0.5, ip_destino=10.2.0.7, spi=0xa12d6210     │
-│ 01:09:02 │ ipsec      │ integridad_fallida    │ spi=2704106000, motivo=Alteracion detectada en payload, secuencia=2            │
-│ 01:09:02 │ vpn_s2s    │ paquete_rechazado     │ gateway=GW-Sucursal, spi=0xa12d6210, seq=2, motivo=Integridad fallida: el      │
-│          │            │                       │ paquete fue alterado                                                           │
-│ 01:09:02 │ vpn_s2s    │ ruta_rechazada        │ gateway=GW-Matriz, ip_destino=8.8.8.8, motivo=sin_tunel_hacia_destino          │
-└──────────┴────────────┴───────────────────────┴────────────────────────────────────────────────────────────────────────────────┘
+────────────────────────────────────────────────────────────────────────────────────────── 4. Registro de eventos (logs/eventos.jsonl) ──────────────────────────────────────────────────────────────────────────────────────────
+┏━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ hora     ┃ componente ┃ evento                ┃ detalle                                                                                                     ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 01:10:56 │ vpn_s2s    │ negociacion_tunel     │ gateway=GW-Matriz, par=GW-Sucursal, ip_local=198.51.100.1, ip_par=203.0.113.1                               │
+│ 01:10:56 │ vpn_s2s    │ tunel_establecido     │ gateway=GW-Matriz, par=GW-Sucursal, red_local=10.1.0.0/24, red_remota=10.2.0.0/24                           │
+│ 01:10:56 │ ipsec      │ paquete_cifrado       │ modo=tunel, spi=172085908, secuencia=1                                                                      │
+│ 01:10:56 │ vpn_s2s    │ paquete_enviado_tunel │ gateway=GW-Matriz, ip_origen=10.1.0.5, ip_destino=10.2.0.7, spi=0xa41d294                                   │
+│ 01:10:56 │ vpn_s2s    │ paquete_entregado     │ gateway=GW-Sucursal, ip_origen=10.1.0.5, ip_destino=10.2.0.7, seq=1                                         │
+│ 01:10:56 │ ipsec      │ replay_detectado      │ spi=172085908, motivo=Paquete duplicado, secuencia=1                                                        │
+│ 01:10:56 │ vpn_s2s    │ replay_detectado      │ gateway=GW-Sucursal, spi=0xa41d294, seq=1, motivo=Replay detectado: seq=1 ya recibido o fuera de la ventana │
+│ 01:10:56 │ ipsec      │ paquete_cifrado       │ modo=tunel, spi=172085908, secuencia=2                                                                      │
+│ 01:10:56 │ vpn_s2s    │ paquete_enviado_tunel │ gateway=GW-Matriz, ip_origen=10.1.0.5, ip_destino=10.2.0.7, spi=0xa41d294                                   │
+│ 01:10:56 │ ipsec      │ integridad_fallida    │ spi=172085908, motivo=Alteracion detectada en payload, secuencia=2                                          │
+│ 01:10:56 │ vpn_s2s    │ paquete_rechazado     │ gateway=GW-Sucursal, spi=0xa41d294, seq=2, motivo=Integridad fallida: el paquete fue alterado               │
+│ 01:10:56 │ vpn_s2s    │ ruta_rechazada        │ gateway=GW-Matriz, ip_destino=8.8.8.8, motivo=sin_tunel_hacia_destino                                       │
+└──────────┴────────────┴───────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

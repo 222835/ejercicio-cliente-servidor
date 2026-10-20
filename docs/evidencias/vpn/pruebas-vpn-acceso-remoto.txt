@@ -1,26 +1,25 @@
 # Comando: python -m pytest -v tests/test_acceso_remoto.py
-# Fecha:   2026-10-19 19:08:57 -0600
-# Commit:  0e1bf4e
-# Python:  Python 3.13.16
+# Fecha:   2026-10-19 19:10:55 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
 
-====================================================== test session starts =======================================================
-platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.7.0 -- /usr/bin/python3
+====================================================================================================== test session starts ======================================================================================================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0 -- /home/nice/ejercicio-cliente-servidor/.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /home/claude/ejercicio-cliente-servidor
-plugins: platformdirs-4.12.2, anyio-4.15.1
+rootdir: /home/nice/ejercicio-cliente-servidor
 collecting ... collected 12 items
 
-tests/test_acceso_remoto.py::test_conexion_valida_asigna_ip_virtual PASSED                                                 [  8%]
-tests/test_acceso_remoto.py::test_ips_virtuales_distintas PASSED                                                           [ 16%]
-tests/test_acceso_remoto.py::test_conexion_invalida_no_crea_sesion PASSED                                                  [ 25%]
-tests/test_acceso_remoto.py::test_empleado_acceso_permitido_y_denegado PASSED                                              [ 33%]
-tests/test_acceso_remoto.py::test_invitado_solo_wiki PASSED                                                                [ 41%]
-tests/test_acceso_remoto.py::test_admin_accede_a_todo PASSED                                                               [ 50%]
-tests/test_acceso_remoto.py::test_operacion_admin_permitida_y_registrada PASSED                                            [ 58%]
-tests/test_acceso_remoto.py::test_operacion_admin_denegada_a_empleado PASSED                                               [ 66%]
-tests/test_acceso_remoto.py::test_sesion_falsa_o_cerrada PASSED                                                            [ 75%]
-tests/test_acceso_remoto.py::test_sesion_vencida PASSED                                                                    [ 83%]
-tests/test_acceso_remoto.py::test_ip_se_libera_al_desconectar PASSED                                                       [ 91%]
-tests/test_acceso_remoto.py::test_reconexion_reutiliza_la_ip_mas_baja PASSED                                               [100%]
+tests/test_acceso_remoto.py::test_conexion_valida_asigna_ip_virtual PASSED                                                                                                                                                [  8%]
+tests/test_acceso_remoto.py::test_ips_virtuales_distintas PASSED                                                                                                                                                          [ 16%]
+tests/test_acceso_remoto.py::test_conexion_invalida_no_crea_sesion PASSED                                                                                                                                                 [ 25%]
+tests/test_acceso_remoto.py::test_empleado_acceso_permitido_y_denegado PASSED                                                                                                                                             [ 33%]
+tests/test_acceso_remoto.py::test_invitado_solo_wiki PASSED                                                                                                                                                               [ 41%]
+tests/test_acceso_remoto.py::test_admin_accede_a_todo PASSED                                                                                                                                                              [ 50%]
+tests/test_acceso_remoto.py::test_operacion_admin_permitida_y_registrada PASSED                                                                                                                                           [ 58%]
+tests/test_acceso_remoto.py::test_operacion_admin_denegada_a_empleado PASSED                                                                                                                                              [ 66%]
+tests/test_acceso_remoto.py::test_sesion_falsa_o_cerrada PASSED                                                                                                                                                           [ 75%]
+tests/test_acceso_remoto.py::test_sesion_vencida PASSED                                                                                                                                                                   [ 83%]
+tests/test_acceso_remoto.py::test_ip_se_libera_al_desconectar PASSED                                                                                                                                                      [ 91%]
+tests/test_acceso_remoto.py::test_reconexion_reutiliza_la_ip_mas_baja PASSED                                                                                                                                              [100%]
 
-======================================================= 12 passed in 0.15s =======================================================
+====================================================================================================== 12 passed in 0.05s =======================================================================================================
