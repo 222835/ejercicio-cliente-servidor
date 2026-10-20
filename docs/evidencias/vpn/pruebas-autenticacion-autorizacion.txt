@@ -1,0 +1,29 @@
+# Comando: python -m pytest -v tests/test_auth.py
+# Fecha:   2026-10-19 19:10:55 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
+
+====================================================================================================== test session starts ======================================================================================================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0 -- /home/nice/ejercicio-cliente-servidor/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/nice/ejercicio-cliente-servidor
+collecting ... collected 16 items
+
+tests/test_auth.py::test_contrasena_no_se_guarda_en_texto_plano PASSED                                                                                                                                                    [  6%]
+tests/test_auth.py::test_misma_contrasena_distinta_sal_distinto_hash PASSED                                                                                                                                               [ 12%]
+tests/test_auth.py::test_login_valido PASSED                                                                                                                                                                              [ 18%]
+tests/test_auth.py::test_login_contrasena_incorrecta PASSED                                                                                                                                                               [ 25%]
+tests/test_auth.py::test_login_usuario_inexistente_mismo_mensaje PASSED                                                                                                                                                   [ 31%]
+tests/test_auth.py::test_bloqueo_tras_intentos_fallidos PASSED                                                                                                                                                            [ 37%]
+tests/test_auth.py::test_autorizacion_por_rol[ana-base_datos-True] PASSED                                                                                                                                                 [ 43%]
+tests/test_auth.py::test_autorizacion_por_rol[ana-panel_admin-True] PASSED                                                                                                                                                [ 50%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-archivos-True] PASSED                                                                                                                                                  [ 56%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-wiki-True] PASSED                                                                                                                                                      [ 62%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-base_datos-False] PASSED                                                                                                                                               [ 68%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-panel_admin-False] PASSED                                                                                                                                              [ 75%]
+tests/test_auth.py::test_autorizacion_por_rol[carla-wiki-True] PASSED                                                                                                                                                     [ 81%]
+tests/test_auth.py::test_autorizacion_por_rol[carla-archivos-False] PASSED                                                                                                                                                [ 87%]
+tests/test_auth.py::test_autenticado_no_implica_autorizado PASSED                                                                                                                                                         [ 93%]
+tests/test_auth.py::test_log_es_json_por_linea PASSED                                                                                                                                                                     [100%]
+
+====================================================================================================== 16 passed in 0.04s =======================================================================================================
