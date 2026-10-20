@@ -6,7 +6,8 @@ import pytest
 from comun import registro
 from vpn.auth import ErrorAutenticacion
 from vpn.sitio_a_sitio import ErrorRuta, Gateway, vista_desde_internet
-from vpn.tunel_ipsec import ErrorIPSec, VentanaAntiReplay
+from ipsec import IPSecSA
+from vpn.tunel_ipsec import ErrorIPSec
 
 PSK = b"clave-precompartida-de-prueba-32b"
 
@@ -64,9 +65,9 @@ def test_replay_rechazado(gateways):
 def test_paquete_alterado_rechazado(gateways):
     matriz, sucursal = gateways
     p = matriz.enviar("10.1.0.5", "10.2.0.7", "hola")
-    carga = bytearray.fromhex(p["carga_cifrada"])
+    carga = bytearray.fromhex(p["encrypted_packet"])
     carga[0] ^= 0xFF
-    p["carga_cifrada"] = carga.hex()
+    p["encrypted_packet"] = carga.hex()
     with pytest.raises(ErrorIPSec, match="alterado"):
         sucursal.recibir(p)
 
@@ -75,7 +76,7 @@ def test_paquete_alterado_no_consume_secuencia(gateways):
     matriz, sucursal = gateways
     p = matriz.enviar("10.1.0.5", "10.2.0.7", "hola")
     falso = copy.deepcopy(p)
-    falso["carga_cifrada"] = "00" + falso["carga_cifrada"][2:]
+    falso["encrypted_packet"] = "00" + falso["encrypted_packet"][2:]
     with pytest.raises(ErrorIPSec):
         sucursal.recibir(falso)
     assert sucursal.recibir(p)["datos"] == "hola"   # el original sigue siendo válido
@@ -101,15 +102,45 @@ def test_destino_sin_tunel(gateways):
 def test_spi_desconocido(gateways):
     matriz, sucursal = gateways
     p = matriz.enviar("10.1.0.5", "10.2.0.7", "x")
-    p["esp"]["spi"] = 0xDEADBEEF
+    p["ipsec_header"]["spi"] = 0xDEADBEEF
     with pytest.raises(ErrorIPSec, match="SPI"):
         sucursal.recibir(p)
 
 
-def test_ventana_antireplay_paquete_muy_viejo():
-    v = VentanaAntiReplay(64)
-    v.marcar(100)
-    assert v.es_valido(36) == (False, "demasiado viejo (fuera de la ventana)")
-    assert v.es_valido(37)[0] is True
-    v.marcar(37)
-    assert v.es_valido(37) == (False, "duplicado (replay)")
+def test_usa_el_modo_tunel_de_la_parte3(gateways):
+    matriz, _ = gateways
+    tunel, _ = next(iter(matriz._salida.values()))
+    assert isinstance(tunel.sa, IPSecSA)
+    p = matriz.enviar("10.1.0.5", "10.2.0.7", "x")
+    # Formato que produce IPSecSimulator.modo_tunel()
+    assert set(p) == {"new_ip_header", "ipsec_header", "encrypted_packet"}
+
+
+def test_paquete_viejo_fuera_de_ventana(gateways):
+    matriz, sucursal = gateways
+    primero = matriz.enviar("10.1.0.5", "10.2.0.7", "viejo")
+    for i in range(70):
+        ultimo = matriz.enviar("10.1.0.5", "10.2.0.7", str(i))
+    sucursal.recibir(ultimo)                      # seq 71
+    with pytest.raises(ErrorIPSec, match="Replay"):
+        sucursal.recibir(primero)                 # seq 1: fuera de la ventana de 64
+
+
+def test_numero_de_secuencia_alterado(gateways):
+    matriz, sucursal = gateways
+    p = matriz.enviar("10.1.0.5", "10.2.0.7", "x")
+    p["ipsec_header"]["seq"] = 999                # el seq va en el AAD de GCM
+    with pytest.raises(ErrorIPSec, match="alterado"):
+        sucursal.recibir(p)
+
+
+def test_paquete_falso_no_bloquea_al_legitimo(gateways):
+    """Un atacante manda basura con el seq del siguiente paquete legítimo.
+    Como la ventana solo se actualiza tras validar GCM, el legítimo pasa."""
+    matriz, sucursal = gateways
+    legitimo = matriz.enviar("10.1.0.5", "10.2.0.7", "pago autorizado")
+    falso = copy.deepcopy(legitimo)
+    falso["encrypted_packet"] = "00" * (len(falso["encrypted_packet"]) // 2)
+    with pytest.raises(ErrorIPSec):
+        sucursal.recibir(falso)
+    assert sucursal.recibir(legitimo)["datos"] == "pago autorizado"

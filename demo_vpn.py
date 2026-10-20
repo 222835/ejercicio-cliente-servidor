@@ -35,17 +35,19 @@ def demo_acceso_remoto():
                         title="Así se guarda una contraseña (nunca en texto plano)"))
 
     consola.print("\n[bold]Autenticación (¿quién eres?)[/]")
+    sesiones = {}
     for nombre, clave in [("beto", "Empleado#2026"), ("beto", "123456"), ("mallory", "admin")]:
         try:
             s = vpn.conectar(nombre, clave, ip_origen="189.203.40.12")
+            sesiones[nombre] = s   # la sesión sigue abierta y se reutiliza abajo
             consola.print(f"  {OK} {nombre}: conectado, IP virtual [cyan]{s.ip_virtual}[/]")
-            vpn.desconectar(s.id)
         except ErrorAutenticacion as e:
             consola.print(f"  {NO} {nombre}: {e}")
 
     consola.print("\n[bold]Autorización (¿qué puedes hacer?) después de conectar[/]")
-    sesiones = {n: vpn.conectar(n, c) for n, c in
-                [("ana", "Admin#2026"), ("beto", "Empleado#2026"), ("carla", "Invitada#2026")]}
+    sesiones["ana"] = vpn.conectar("ana", "Admin#2026")
+    sesiones["carla"] = vpn.conectar("carla", "Invitada#2026")
+    sesiones = {n: sesiones[n] for n in ("ana", "beto", "carla")}
     t = Table(title="Acceso real a recursos internos por la VPN")
     t.add_column("Usuario (rol)")
     t.add_column("IP virtual")
@@ -87,13 +89,14 @@ def demo_sitio_a_sitio():
         consola.print(f"  {NO} Gateway impostor: {e}")
     matriz.establecer_tunel(sucursal)
     consola.print(f"  {OK} Gateways autenticados con PSK (desafío-respuesta HMAC); claves derivadas con HKDF")
+    consola.print("  [dim]Cifrado y anti-replay: módulo IPSec de la Parte 3 (IPSecSA + modo_tunel)[/]")
 
     p = matriz.enviar("10.1.0.5", "10.2.0.7", "Reporte de ventas Q3")
     v = vista_desde_internet(p)
     t = Table(title="El mismo paquete visto en cada punto")
     t.add_column("Punto"); t.add_column("Origen"); t.add_column("Destino"); t.add_column("Contenido")
     t.add_row("Red matriz (antes del GW)", "10.1.0.5", "10.2.0.7", "Reporte de ventas Q3")
-    t.add_row("[red]Internet (Wireshark)[/]", v["src"], v["dst"],
+    t.add_row("[red]Internet (lo que vería\nun sniffer)[/]", v["src"], v["dst"],
               f"ESP spi={v['spi']} seq={v['seq']}\n{v['carga']}")
     interno = sucursal.recibir(p)
     t.add_row("Red sucursal (después del GW)", interno["src"], interno["dst"], interno["datos"])
@@ -105,7 +108,7 @@ def demo_sitio_a_sitio():
     except ErrorIPSec as e:
         consola.print(f"  {NO} Reenvío del mismo paquete: {e}")
     p2 = matriz.enviar("10.1.0.5", "10.2.0.7", "Transferir $100")
-    p2["carga_cifrada"] = "ff" + p2["carga_cifrada"][2:]
+    p2["encrypted_packet"] = "ff" + p2["encrypted_packet"][2:]
     try:
         sucursal.recibir(p2)
     except ErrorIPSec as e:

@@ -1,110 +1,65 @@
-"""Adaptador del modo túnel de IPSec para la VPN sitio a sitio.
+"""Puente entre la VPN sitio a sitio (Parte 4) y el IPSec de la Parte 3.
 
-La implementación real de IPSec es la Parte 3 (Adán). Para que la Parte 4 se
-pueda probar desde ya, aquí hay una versión mínima compatible:
-  - SA con SPI, clave y algoritmo (AES-256-GCM)
-  - Modo túnel: cifra el paquete IP completo y agrega un encabezado externo
-  - Anti-replay con número de secuencia y ventana deslizante de 64
+La VPN sitio a sitio no implementa criptografía propia: reutiliza
+IPSecSA (SPI, clave AES-GCM, ventana anti-replay de 64) e IPSecSimulator
+(modo túnel) del módulo ipsec/ de Adán.
 
-PARA INTEGRAR LA PARTE 3: solo hay que cambiar crear_tunel_salida() y
-crear_tunel_entrada() para que devuelvan objetos de Adán que tengan los métodos
-encapsular(paquete, ip_gw_origen, ip_gw_destino) -> dict y
-desencapsular(paquete_esp) -> dict. El resto del código no cambia.
+Este archivo solo agrega lo que la VPN necesita del lado receptor:
+desencapsular un paquete en modo túnel en el orden correcto.
 """
 from __future__ import annotations
 
 import json
-import os
 
-from cryptography.exceptions import InvalidTag
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from ipsec import IPSecSA, IPSecSimulator
 
 
 class ErrorIPSec(Exception):
     """Paquete rechazado (replay, alteración o SPI desconocido)."""
 
 
-class VentanaAntiReplay:
-    """Ventana deslizante estilo RFC 4303 con un mapa de bits."""
-
-    def __init__(self, tamano: int = 64):
-        self.tamano = tamano
-        self.mayor = 0
-        self.mapa = 0
-
-    def es_valido(self, seq: int) -> tuple[bool, str]:
-        if seq <= 0:
-            return False, "secuencia inválida"
-        if seq > self.mayor:
-            return True, "nuevo"
-        diferencia = self.mayor - seq
-        if diferencia >= self.tamano:
-            return False, "demasiado viejo (fuera de la ventana)"
-        if (self.mapa >> diferencia) & 1:
-            return False, "duplicado (replay)"
-        return True, "dentro de la ventana"
-
-    def marcar(self, seq: int) -> None:
-        mascara = (1 << self.tamano) - 1
-        if seq > self.mayor:
-            self.mapa = ((self.mapa << (seq - self.mayor)) | 1) & mascara
-            self.mayor = seq
-        else:
-            self.mapa |= 1 << (self.mayor - seq)
-
-
-class TunelSimulado:
-    """Una SA unidireccional en modo túnel."""
-
-    ALGORITMO = "AES-256-GCM"
+class TunelIPSec:
+    """Una SA unidireccional en modo túnel, construida con la Parte 3."""
 
     def __init__(self, spi: int, clave: bytes):
-        self.spi = spi
-        self.clave = clave
-        self._aes = AESGCM(clave)
-        self.seq_salida = 0
-        self.ventana = VentanaAntiReplay(64)
+        self.sa = IPSecSA(spi=spi, key=clave)
+        self.simulador = IPSecSimulator(self.sa)
 
-    @staticmethod
-    def _aad(encabezado_externo: dict, spi: int, seq: int) -> bytes:
-        # El encabezado ESP y el externo se autentican (no se cifran) para detectar alteraciones.
-        return json.dumps({"ext": encabezado_externo, "spi": spi, "seq": seq},
-                          sort_keys=True).encode()
+    @property
+    def spi(self) -> int:
+        return self.sa.spi
 
     def encapsular(self, paquete_interno: dict, ip_gw_origen: str, ip_gw_destino: str) -> dict:
-        self.seq_salida += 1
-        externo = {"src": ip_gw_origen, "dst": ip_gw_destino, "proto": "ESP(50)"}
-        nonce = os.urandom(12)
-        texto = json.dumps(paquete_interno, sort_keys=True).encode()
-        cifrado = self._aes.encrypt(nonce, texto, self._aad(externo, self.spi, self.seq_salida))
-        return {
-            "encabezado_ip_externo": externo,
-            "esp": {"spi": self.spi, "seq": self.seq_salida},
-            "nonce": nonce.hex(),
-            "carga_cifrada": cifrado.hex(),   # incluye la etiqueta GCM de 16 bytes
-        }
+        """Usa modo_tunel() de la Parte 3: cifra el paquete IP completo y
+        agrega un encabezado IP nuevo entre gateways."""
+        encabezado_externo = {"src": ip_gw_origen, "dst": ip_gw_destino, "proto": "ESP(50)"}
+        return self.simulador.modo_tunel(paquete_interno, encabezado_externo)
 
     def desencapsular(self, paquete_esp: dict) -> dict:
-        spi, seq = paquete_esp["esp"]["spi"], paquete_esp["esp"]["seq"]
-        if spi != self.spi:
+        """Verifica y descifra un paquete en modo túnel.
+
+        Orden importante: primero se comprueba la integridad con AES-GCM y
+        SOLO si el paquete es auténtico se registra su número de secuencia en
+        la ventana anti-replay. Si se hiciera al revés, un atacante podría
+        mandar un paquete falso con el número de secuencia del siguiente
+        paquete legítimo y hacer que este se rechazara como "duplicado".
+        """
+        spi = paquete_esp["ipsec_header"]["spi"]
+        seq = paquete_esp["ipsec_header"]["seq"]
+        if spi != self.sa.spi:
             raise ErrorIPSec("SPI desconocido")
-        valido, motivo = self.ventana.es_valido(seq)
-        if not valido:
-            raise ErrorIPSec(f"Replay detectado: seq={seq} {motivo}")
         try:
-            texto = self._aes.decrypt(bytes.fromhex(paquete_esp["nonce"]),
-                                      bytes.fromhex(paquete_esp["carga_cifrada"]),
-                                      self._aad(paquete_esp["encabezado_ip_externo"], spi, seq))
-        except InvalidTag:
+            datos = self.sa.decrypt_payload(bytes.fromhex(paquete_esp["encrypted_packet"]), seq)
+        except ValueError:
             raise ErrorIPSec("Integridad fallida: el paquete fue alterado") from None
-        # Solo se marca la secuencia cuando el paquete es auténtico.
-        self.ventana.marcar(seq)
-        return json.loads(texto)
+        if not self.sa.check_replay(seq):
+            raise ErrorIPSec(f"Replay detectado: seq={seq} ya recibido o fuera de la ventana")
+        return json.loads(datos)
 
 
-def crear_tunel_salida(spi: int, clave: bytes) -> TunelSimulado:
-    return TunelSimulado(spi, clave)
+def crear_tunel_salida(spi: int, clave: bytes) -> TunelIPSec:
+    return TunelIPSec(spi, clave)
 
 
-def crear_tunel_entrada(spi: int, clave: bytes) -> TunelSimulado:
-    return TunelSimulado(spi, clave)
+def crear_tunel_entrada(spi: int, clave: bytes) -> TunelIPSec:
+    return TunelIPSec(spi, clave)

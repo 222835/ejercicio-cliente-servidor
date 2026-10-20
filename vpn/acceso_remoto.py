@@ -85,6 +85,8 @@ class ServidorVPNAccesoRemoto:
         sesion = self.sesiones.pop(id_sesion, None)
         if sesion:
             self._ips_libres.append(sesion.ip_virtual)
+            # Se reutiliza siempre la IP libre más baja (como un servidor DHCP).
+            self._ips_libres.sort(key=ipaddress.ip_address)
             registrar("desconexion_vpn", "vpn_remota", usuario=sesion.usuario.nombre,
                       ip_virtual=sesion.ip_virtual)
 

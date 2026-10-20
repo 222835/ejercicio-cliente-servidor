@@ -97,3 +97,11 @@ def test_ip_se_libera_al_desconectar(servidor):
     ip = s.ip_virtual
     servidor.desconectar(s.id)
     assert ip in servidor._ips_libres
+
+
+def test_reconexion_reutiliza_la_ip_mas_baja(servidor):
+    a = servidor.conectar("beto", "Empleado#2026")
+    b = servidor.conectar("ana", "Admin#2026")
+    servidor.desconectar(a.id)
+    c = servidor.conectar("beto", "Empleado#2026")
+    assert c.ip_virtual == a.ip_virtual and c.ip_virtual != b.ip_virtual

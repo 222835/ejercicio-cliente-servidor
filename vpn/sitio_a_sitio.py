@@ -105,7 +105,7 @@ class Gateway:
                 paquete = tunel.encapsular(interno, self.ip_publica, par.ip_publica)
                 registrar("paquete_enviado_tunel", "vpn_s2s", gateway=self.nombre,
                           ip_origen=ip_origen, ip_destino=ip_destino,
-                          spi=hex(paquete["esp"]["spi"]), seq=paquete["esp"]["seq"])
+                          spi=hex(paquete["ipsec_header"]["spi"]), seq=paquete["ipsec_header"]["seq"])
                 return paquete
 
         registrar("ruta_rechazada", "vpn_s2s", gateway=self.nombre,
@@ -114,7 +114,7 @@ class Gateway:
 
     def recibir(self, paquete_esp: dict) -> dict:
         """El gateway recibe un paquete ESP desde Internet y lo entrega a su red local."""
-        spi = paquete_esp["esp"]["spi"]
+        spi = paquete_esp["ipsec_header"]["spi"]
         entrada = self._entrada.get(spi)
         if entrada is None:
             registrar("paquete_rechazado", "vpn_s2s", gateway=self.nombre,
@@ -122,7 +122,7 @@ class Gateway:
             raise ErrorIPSec("SPI desconocido: no hay SA para este paquete")
         tunel, par = entrada
 
-        if paquete_esp["encabezado_ip_externo"]["src"] != par.ip_publica:
+        if paquete_esp["new_ip_header"]["src"] != par.ip_publica:
             registrar("paquete_rechazado", "vpn_s2s", gateway=self.nombre,
                       motivo="gateway_origen_inesperado")
             raise ErrorIPSec("El paquete no viene del gateway par")
@@ -132,7 +132,7 @@ class Gateway:
         except ErrorIPSec as e:
             evento = "replay_detectado" if "Replay" in str(e) else "paquete_rechazado"
             registrar(evento, "vpn_s2s", gateway=self.nombre, spi=hex(spi),
-                      seq=paquete_esp["esp"]["seq"], motivo=str(e))
+                      seq=paquete_esp["ipsec_header"]["seq"], motivo=str(e))
             raise
 
         if ipaddress.ip_address(interno["dst"]) not in self.red_local:
@@ -142,17 +142,17 @@ class Gateway:
 
         registrar("paquete_entregado", "vpn_s2s", gateway=self.nombre,
                   ip_origen=interno["src"], ip_destino=interno["dst"],
-                  seq=paquete_esp["esp"]["seq"])
+                  seq=paquete_esp["ipsec_header"]["seq"])
         return interno
 
 
 def vista_desde_internet(paquete_esp: dict) -> dict:
-    """Lo que vería un atacante con Wireshark entre los dos gateways."""
+    """Lo que vería alguien capturando tráfico (p. ej. con Wireshark) entre los dos gateways."""
     return {
-        "src": paquete_esp["encabezado_ip_externo"]["src"],
-        "dst": paquete_esp["encabezado_ip_externo"]["dst"],
-        "proto": paquete_esp["encabezado_ip_externo"]["proto"],
-        "spi": hex(paquete_esp["esp"]["spi"]),
-        "seq": paquete_esp["esp"]["seq"],
-        "carga": paquete_esp["carga_cifrada"][:48] + "...",
+        "src": paquete_esp["new_ip_header"]["src"],
+        "dst": paquete_esp["new_ip_header"]["dst"],
+        "proto": paquete_esp["new_ip_header"]["proto"],
+        "spi": hex(paquete_esp["ipsec_header"]["spi"]),
+        "seq": paquete_esp["ipsec_header"]["seq"],
+        "carga": paquete_esp["encrypted_packet"][:48] + "...",
     }

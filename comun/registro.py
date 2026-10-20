@@ -33,6 +33,7 @@ EVENTOS_ADVERTENCIA = {
     "paquete_rechazado",
     "replay_detectado",
     "tunel_rechazado",
+    "integridad_fallida",
     "ruta_rechazada",
 }
 

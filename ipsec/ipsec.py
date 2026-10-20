@@ -1,12 +1,9 @@
 import os
 import json
-import logging
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.exceptions import InvalidTag
 
-# cambiar estas dos líneas por algo como: from logger_comun import logger
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("IPSec")
+from comun.registro import registrar  # registro común del proyecto (JSON por línea)
 
 class IPSecSA:
     """
@@ -29,24 +26,14 @@ class IPSecSA:
         """
         if seq <= self.highest_seq - self.window_size:
            
-            logger.warning(json.dumps({
-                "modulo": "IPSec",
-                "evento": "Anti-replay",
-                "estado": "Rechazado",
-                "motivo": "Paquete demasiado viejo",
-                "secuencia": seq
-            }))
+            registrar("replay_detectado", "ipsec", spi=self.spi,
+                      motivo="Paquete demasiado viejo", secuencia=seq)
             return False
             
         if seq in self.seen_seqs:
             
-            logger.warning(json.dumps({
-                "modulo": "IPSec",
-                "evento": "Anti-replay",
-                "estado": "Rechazado",
-                "motivo": "Paquete duplicado",
-                "secuencia": seq
-            }))
+            registrar("replay_detectado", "ipsec", spi=self.spi,
+                      motivo="Paquete duplicado", secuencia=seq)
             return False
         
         self.seen_seqs.add(seq)
@@ -78,13 +65,8 @@ class IPSecSA:
             return self.aesgcm.decrypt(nonce, ciphertext, aad)
         except InvalidTag:
             
-            logger.error(json.dumps({
-                "modulo": "IPSec",
-                "evento": "Integridad GCM",
-                "estado": "Alerta de Seguridad",
-                "motivo": "Alteracion detectada en payload",
-                "secuencia": seq
-            }))
+            registrar("integridad_fallida", "ipsec", spi=self.spi,
+                      motivo="Alteracion detectada en payload", secuencia=seq)
             raise ValueError("El paquete fue alterado")
 
 
@@ -105,13 +87,8 @@ class IPSecSimulator:
         
         encrypted_payload = self.sa.encrypt_payload(payload.encode(), seq)
         
-        logger.info(json.dumps({
-            "modulo": "IPSec",
-            "evento": "Cifrado",
-            "modo": "Transporte",
-            "estado": "Exitoso",
-            "secuencia": seq
-        }))
+        registrar("paquete_cifrado", "ipsec", modo="transporte",
+                  spi=self.sa.spi, secuencia=seq)
         
         return {
             "ip_header": ip_header,
@@ -129,13 +106,8 @@ class IPSecSimulator:
         packet_bytes = json.dumps(original_packet).encode()
         encrypted_packet = self.sa.encrypt_payload(packet_bytes, seq)
         
-        logger.info(json.dumps({
-            "modulo": "IPSec",
-            "evento": "Cifrado",
-            "modo": "Tunel",
-            "estado": "Exitoso",
-            "secuencia": seq
-        }))
+        registrar("paquete_cifrado", "ipsec", modo="tunel",
+                  spi=self.sa.spi, secuencia=seq)
         
         return {
             "new_ip_header": gateway_header,
