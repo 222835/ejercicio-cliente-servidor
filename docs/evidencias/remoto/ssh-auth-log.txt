@@ -1,0 +1,40 @@
+2026-10-19T21:48:06.971166-05:00 User7951-PC sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+2026-10-19T21:48:06.971771-05:00 User7951-PC sudo: user : TTY=/dev/pts/2 ; PWD=/mnt/c/Users/USER/ejercicio-cliente-servidor ; USER=root ; COMMAND=/usr/bin/bash ssh/crear_usuarios.sh integrante-prueba /home/user/.ssh/authorized_keys
+2026-10-19T21:48:07.511208-05:00 User7951-PC sudo: pam_unix(sudo:session): session closed for user root
+2026-10-19T21:51:27.357604-05:00 User7951-PC sshd-session[6374]: Connection from 100.81.24.80 port 52042 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T21:51:27.707716-05:00 User7951-PC sshd-session[6374]: Accepted key ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs found at /home/user/.ssh/authorized_keys:1
+2026-10-19T21:51:27.712375-05:00 User7951-PC sshd-session[6374]: Postponed publickey for user from 100.81.24.80 port 52042 ssh2 [preauth]
+2026-10-19T21:51:27.760523-05:00 User7951-PC sshd-session[6374]: Accepted key ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs found at /home/user/.ssh/authorized_keys:1
+2026-10-19T21:51:27.773322-05:00 User7951-PC sshd-session[6374]: Accepted publickey for user from 100.81.24.80 port 52042 ssh2: ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs
+2026-10-19T21:51:27.777734-05:00 User7951-PC sshd-session[6374]: pam_unix(sshd:session): session opened for user user(uid=1000) by user(uid=0)
+2026-10-19T21:51:28.471288-05:00 User7951-PC sshd-session[6374]: User child is on pid 6413
+2026-10-19T21:51:29.109363-05:00 User7951-PC sshd-session[6413]: Starting session: shell on pts/3 for user from 100.81.24.80 port 52042 id 0
+2026-10-19T21:51:34.276162-05:00 User7951-PC sshd-session[6374]: syslogin_perform_logout: logout() returned an error
+2026-10-19T21:51:34.328077-05:00 User7951-PC sshd-session[6413]: Received disconnect from 100.81.24.80 port 52042:11: disconnected by user
+2026-10-19T21:51:34.328760-05:00 User7951-PC sshd-session[6413]: Disconnected from user user 100.81.24.80 port 52042
+2026-10-19T21:51:34.329468-05:00 User7951-PC sshd-session[6374]: pam_unix(sshd:session): session closed for user user
+2026-10-19T21:51:47.207700-05:00 User7951-PC sshd-session[6442]: Connection from 100.81.24.80 port 50602 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T21:51:47.812342-05:00 User7951-PC sshd-session[6442]: User invitado from 100.81.24.80 not allowed because none of user's groups are listed in AllowGroups
+2026-10-19T21:51:48.021432-05:00 User7951-PC sshd-session[6442]: Connection reset by invalid user invitado 100.81.24.80 port 50602 [preauth]
+2026-10-19T21:51:48.025701-05:00 User7951-PC sshd[4402]: srclimit_penalise: ipv4: new 100.81.24.80/32 deferred penalty of 1 seconds for penalty: connections without attempting authentication
+2026-10-19T21:52:00.724185-05:00 User7951-PC sshd-session[6446]: Connection from 100.81.24.80 port 61484 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T21:52:01.329307-05:00 User7951-PC sshd-session[6446]: Invalid user erde from 100.81.24.80 port 61484
+2026-10-19T21:52:01.531601-05:00 User7951-PC sshd-session[6446]: Connection reset by invalid user erde 100.81.24.80 port 61484 [preauth]
+2026-10-19T21:52:01.534140-05:00 User7951-PC sshd[4402]: srclimit_penalise: ipv4: new 100.81.24.80/32 deferred penalty of 1 seconds for penalty: connections without attempting authentication
+2026-10-19T21:52:22.944010-05:00 User7951-PC sshd-session[6448]: Connection from 100.81.24.80 port 59197 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T21:52:23.649880-05:00 User7951-PC sshd-session[6448]: Connection reset by authenticating user user 100.81.24.80 port 59197 [preauth]
+2026-10-19T21:52:23.653116-05:00 User7951-PC sshd[4402]: srclimit_penalise: ipv4: new 100.81.24.80/32 deferred penalty of 1 seconds for penalty: connections without attempting authentication
+2026-10-19T21:53:58.195084-05:00 User7951-PC sshd-session[6458]: Connection from 100.81.24.80 port 51958 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T21:53:58.885311-05:00 User7951-PC sshd-session[6458]: Accepted key ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs found at /home/integrante-prueba/.ssh/authorized_keys:1
+2026-10-19T21:53:58.890940-05:00 User7951-PC sshd-session[6458]: Postponed publickey for integrante-prueba from 100.81.24.80 port 51958 ssh2 [preauth]
+2026-10-19T21:53:58.986180-05:00 User7951-PC sshd-session[6458]: Accepted key ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs found at /home/integrante-prueba/.ssh/authorized_keys:1
+2026-10-19T21:53:58.997902-05:00 User7951-PC sshd-session[6458]: Accepted publickey for integrante-prueba from 100.81.24.80 port 51958 ssh2: ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs
+2026-10-19T21:53:59.002075-05:00 User7951-PC sshd-session[6458]: pam_unix(sshd:session): session opened for user integrante-prueba(uid=1005) by integrante-prueba(uid=0)
+2026-10-19T21:53:59.983720-05:00 User7951-PC sshd-session[6458]: User child is on pid 6533
+2026-10-19T21:54:00.079469-05:00 User7951-PC sshd-session[6533]: Starting session: shell on pts/3 for integrante-prueba from 100.81.24.80 port 51958 id 0
+2026-10-19T21:54:23.709405-05:00 User7951-PC sshd-session[6458]: syslogin_perform_logout: logout() returned an error
+2026-10-19T21:54:24.074613-05:00 User7951-PC sshd-session[6533]: Close session: user integrante-prueba from 100.81.24.80 port 51958 id 0
+2026-10-19T21:54:24.074933-05:00 User7951-PC sshd-session[6533]: Received disconnect from 100.81.24.80 port 51958:11: disconnected by user
+2026-10-19T21:54:24.075049-05:00 User7951-PC sshd-session[6533]: Disconnected from user integrante-prueba 100.81.24.80 port 51958
+2026-10-19T21:54:24.075908-05:00 User7951-PC sshd-session[6458]: pam_unix(sshd:session): session closed for user integrante-prueba
+2026-10-19T22:14:12.959374-05:00 User7951-PC sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)

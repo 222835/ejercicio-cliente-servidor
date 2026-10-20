@@ -41,6 +41,19 @@ python -m tls.cliente --modo tls --host <IP_DEL_SERVIDOR> --hostname 222835-clie
 ```
 
 El servidor necesita `pki/servidor/server.key`, que no está en el repositorio. Pasos para las dos computadoras y para Wireshark en [`README-TLS.md`](README-TLS.md).
+### PKI y SSH (Parte 2)
+
+El servidor es Ubuntu en WSL, accesible desde otras redes a través de Tailscale con el dominio `222835-cliente-servidor.duckdns.org`. Para conectarse hay que estar en la red de Tailscale del equipo.
+
+```bash
+ssh <usuario>@222835-cliente-servidor.duckdns.org        # acceso administrativo (solo con llave)
+
+# En el servidor, desde la raíz del repo:
+python3 ssh/parsear_auth_log.py --seguir                  # pasa los eventos de SSH y sudo a logs/eventos.jsonl
+sudo bash ssh/crear_usuarios.sh <usuario> <llave.pub>     # da de alta a un integrante
+```
+
+La PKI ya está generada; `pki/generar_pki.sh` documenta cómo se creó y permite reproducirla (no debe correrse sobre la PKI actual).
 
 ### IPSec (Parte 3)
 
@@ -82,8 +95,50 @@ Los rechazos se registran como `WARNING` (`certificado_rechazado`, `handshake_fa
 
 ## PKI
 
+> Parte 2 · Anna Lizbeth Barajas Sandoval · Archivos en `pki/` · Detalle completo en [`README-PKI-SSH.md`](README-PKI-SSH.md)
+
+La organización tiene su propia Autoridad Certificadora, creada con OpenSSL. El cliente solo confía en `pki/root/ca.crt` y acepta el certificado del servidor únicamente si puede rastrearlo, firma por firma, hasta esa raíz.
+
+```
+Proyecto Root CA                     autofirmada · 10 años   ← el cliente confía solo en esta
+└── Proyecto Intermediate CA         5 años                  ← firma los certificados de servidor
+    └── 222835-cliente-servidor.duckdns.org   1 año          ← certificado que presenta el servidor
+```
+
+- La **intermedia** permite que la llave raíz no se use en el día a día: se mantiene fuera de línea, y la intermedia podría reemplazarse sin cambiar el `ca.crt` de los clientes. Tiene `pathlen:0`, así que no puede crear otras CA.
+- El servidor envía su certificado junto con la intermedia (`server-chain.crt`). El cliente verifica las firmas de la cadena, las fechas de validez y que el `subjectAltName` coincida con el dominio al que se conectó.
+- Las llaves privadas de las CA **no están en el repositorio**; la del servidor solo existe en el servidor (`/opt/proyecto/certs/`).
+
+Para demostrar los rechazos hay un certificado inválido por cada falla posible:
+
+| Certificado | Por qué se rechaza | Error |
+|---|---|---|
+| `malos/autofirmado.crt` | Nadie de confianza lo firmó | `self-signed certificate` |
+| `malos/expirado.crt` | Fuera de su periodo de validez | `certificate has expired` |
+| `malos/nombre-incorrecto-chain.crt` | Cadena válida, pero nombre distinto | `hostname mismatch` |
+| `malos/otra-ca.crt` | Firmado por una CA desconocida | `unable to get local issuer certificate` |
+
+Las pruebas con cada certificado, hechas desde otra computadora en una red distinta, están en `docs/evidencias/remoto`.
 
 ## SSH
+
+> Parte 2 · Anna Lizbeth Barajas Sandoval · Archivos en `ssh/` · Detalle completo en [`README-PKI-SSH.md`](README-PKI-SSH.md)
+
+SSH da el acceso administrativo remoto al servidor. A diferencia de TLS, que protege la sesión de una aplicación, SSH permite que una persona entre al equipo para operarlo; por eso además controla quién entra, qué puede hacer y registra cada intento.
+
+- **Autenticación solo con llave pública** (Ed25519). Las contraseñas y el acceso directo como root están deshabilitados (`ssh/01-proyecto.conf`).
+- **Autorización en dos niveles:** solo los miembros del grupo `sshusers` pueden entrar (`AllowGroups`), y solo los del grupo `sudo` pueden administrar.
+
+| Cuenta | Puede entrar | Puede administrar |
+|---|:-:|:-:|
+| Administradora | ✔ | ✔ |
+| Integrantes | ✔ | ✘ |
+| `invitado` (existe, pero no está en `sshusers`) | ✘ | ✘ |
+| Usuario inexistente | ✘ | ✘ |
+
+- **Registro:** sshd y sudo escriben en `/var/log/auth.log`. `ssh/parsear_auth_log.py` convierte esos eventos al registro común con `componente="ssh"`: `autenticacion_exitosa`, `autenticacion_fallida` (con su `motivo`), `sesion_cerrada`, `operacion_administrativa` y `acceso_denegado`.
+
+Las pruebas de acceso autorizado, rechazos y operación administrativa sin permiso están en `docs/evidencias/remoto/`.
 
 
 ## IPSec
@@ -164,6 +219,15 @@ Se registran conexiones, autenticaciones exitosas y fallidas, accesos permitidos
 - El servidor usa una hebra por conexión sin límite; los tiempos de espera acotan cada una pero no evitan el agotamiento por muchas conexiones.
 
 Más detalle en [`README-TLS.md`](README-TLS.md).
+### PKI y SSH (Parte 2)
+
+- No hay revocación de certificados (CRL u OCSP): si una llave se compromete, hay que regenerar y redistribuir los certificados.
+- Las llaves de las CA están en archivos sin contraseña ni HSM, y el certificado del servidor se renueva manualmente.
+- La CA es privada: solo la reconocen los clientes que tienen `ca.crt`.
+- El servidor es una computadora personal: solo está disponible mientras esté encendida y conectada a Tailscale.
+- SSH usa un solo factor (la llave) y no bloquea automáticamente las IP con intentos fallidos repetidos.
+
+Más detalle en [`README-PKI-SSH.md`](README-PKI-SSH.md).
 
 ### VPN, autenticación y registro (Parte 4)
 
