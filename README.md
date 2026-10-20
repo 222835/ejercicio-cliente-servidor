@@ -80,7 +80,7 @@ IPSec se **simula** en Python con la librería `cryptography`. No modifica paque
 
 ## VPN
 
-> Parte 4 · Berenice Flores Hernández · Detalle completo en [`README_parte4.md`](README_parte4.md)
+> Parte 4 · Berenice Flores Hernández · Detalle completo en [`README-VPN.md`](README-VPN.md)
 
 Ambas VPN son **simuladas** en Python: no crean interfaces de red, pero aplican la autenticación, el control de acceso y la protección del tráfico que haría una VPN real.
 
@@ -135,5 +135,5 @@ Se registran conexiones, autenticaciones exitosas y fallidas, accesos permitidos
 - El bloqueo por intentos fallidos puede usarse para bloquear cuentas a propósito.
 - El archivo de log no está protegido contra modificaciones.
 
-Más detalle en [`README_parte4.md`](README_parte4.md).
+Más detalle en [`README-VPN.md`](README-VPN.md).
 

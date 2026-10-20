@@ -1,6 +1,6 @@
-# Parte 4 — VPN, autenticación, autorización y registro
+# VPN, autenticación, autorización y registro
 
-Requerimientos 6, 7 y 8 (y sus pruebas del requerimiento 9). Responsable: Berenice.
+**Parte 4** · Berenice Flores Hernández · Requerimientos 6, 7 y 8 (y sus pruebas del requerimiento 9)
 
 ## Estructura
 
