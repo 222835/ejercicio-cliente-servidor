@@ -21,6 +21,9 @@ EVENTOS_ADVERTENCIA = {
     "tunel_rechazado",
     "integridad_fallida",
     "ruta_rechazada",
+    "certificado_rechazado",
+    "handshake_fallido",
+    "mensaje_rechazado",
 }
 
 
