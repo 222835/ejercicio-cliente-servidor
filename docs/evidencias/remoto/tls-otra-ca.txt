@@ -1,0 +1,135 @@
+Connecting to 100.126.252.63
+CONNECTED(000001A4)
+depth=0 C=MX, O=Atacante, CN=222835-cliente-servidor.duckdns.org
+verify error:num=20:unable to get local issuer certificate
+verify return:1
+depth=0 C=MX, O=Atacante, CN=222835-cliente-servidor.duckdns.org
+verify error:num=21:unable to verify the first certificate
+verify return:1
+depth=0 C=MX, O=Atacante, CN=222835-cliente-servidor.duckdns.org
+verify return:1
+---
+Certificate chain
+ 0 s:C=MX, O=Atacante, CN=222835-cliente-servidor.duckdns.org
+   i:C=MX, O=Atacante, CN=CA Falsa
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Oct 19 10:04:58 2026 GMT; NotAfter: Oct 19 10:04:58 2027 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEszCCApugAwIBAgIUJgtKcTlrt4kwIuyppZIe1NrqYsIwDQYJKoZIhvcNAQEL
+BQAwMzELMAkGA1UEBhMCTVgxETAPBgNVBAoMCEF0YWNhbnRlMREwDwYDVQQDDAhD
+QSBGYWxzYTAeFw0yNjEwMTkxMDA0NThaFw0yNzEwMTkxMDA0NThaME4xCzAJBgNV
+BAYTAk1YMREwDwYDVQQKDAhBdGFjYW50ZTEsMCoGA1UEAwwjMjIyODM1LWNsaWVu
+dGUtc2Vydmlkb3IuZHVja2Rucy5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCjDzdi0Ks6einan0cDV+x85fpTkVZsNcFa5aFpAwSVjStzSQPV3Pj1
+DSvhTRPLOZu9lRAM4I2a9p7v4CuXM6qgLMlQfEbiWWD1GR4gQjUrszqsEgtJArAi
+hSijND6z5K+E2652Ss5/G8tiSf9cXfx8sqhqcBPO/lyuc91BKPuEuP3YV5Z96LrW
+WAIdle1o2kOOWS4t+NRivDwbQ/I7I9KrFUNcewHfNp4YyaS8I8GjLuYAVhmVU9rn
+1WUA/hRjxYfUX1bq5n4n1nayx78H08pECCXLu6Pby4Grb636hA76jt2jlqNVtPJp
+iWjwi6ahBqFpuxaQVovGolfHKWgOwNohAgMBAAGjgaMwgaAwCQYDVR0TBAIwADAO
+BgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAwwCgYIKwYBBQUHAwEwLgYDVR0RBCcwJYIj
+MjIyODM1LWNsaWVudGUtc2Vydmlkb3IuZHVja2Rucy5vcmcwHQYDVR0OBBYEFFrq
+DlKtXeunGoHqM/LzUS1f8DmsMB8GA1UdIwQYMBaAFB5lkwUkAdrpOdcsa/E8jEz3
+bx/UMA0GCSqGSIb3DQEBCwUAA4ICAQCl8R6O/876PYJtrFynmXUzmzysoRWxMQg/
+1JI7C/kuTd28RRFR9h5yQ0c/Hn4tX/og+whNlkTf7O92CPgB8+/RT3YMZMjNASbQ
+DRgAM3Pdi13SWUptThc2RBzH4W553CgdW+Zn5eEzVKcR+NX9/GZIVCvTKqlxnCM3
+T8RQrOK9SHlBFath2ezzWCSzsEe9DwF7il+kADG8Jj+S2qMHSqTaiYxj2MJZi2nq
+OHVq80a06uje3+VX9VTMUaNAZXcZSqHW3kqn/tDW8kHnbWrDIlVUsFIF3NiatjPB
+dlaQL+JLWDlppL/jjPofpn0MpVNJYE/9Lqgu/L6PaUzSydFNRhQVIH9TGSXXbyKz
+5yjKwqDDzo9l1XpK3yYkSaGx8u4f0neg4bg+gpkanFg6gyzyYf/QF8Fq9aiuSVWn
+IFWikpAL1RtxsdyvWEDvXNDkqraENQwfVEEQXTKT8dxJpBhsK1jB6XG8uLELw6Qc
+4tCmF4cGZt5EsOTanzRZTpRb35FMTmKBIbeFiwZUyiBi9UVjM4xwl3brjZp2PIU7
+ajQkH5KhcdKOEKxbdBIzRvxZPYLluz9DZAmcFKKZ4oQNrOPwN4nM5ma6sTLPUeui
+IWI/ppxJpAqvgfp5bVStZVwXV1Gitu7MbjhwxE3wGZi6Em7BAoFwEx9uXJVM7oe3
+wrymn/reNg==
+-----END CERTIFICATE-----
+subject=C=MX, O=Atacante, CN=222835-cliente-servidor.duckdns.org
+issuer=C=MX, O=Atacante, CN=CA Falsa
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 1785 bytes and written 430 bytes
+Verification error: unable to verify the first certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 21 (unable to verify the first certificate)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 5D4E1CF939E5A1A23D91D97F36B1543A94B2AD7DD285DC65EAFBDE56B5781D98
+    Session-ID-ctx: 
+    Resumption PSK: 0B6C6A9C06C6121E29FDCE09655B6E86E8DD618FEB7F74744495EBF24D062B39A05F90EBC1EC64A745A92A2B1A0E6BA8
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 66 f1 05 9e f7 fd cb 91-4f 9c 5a c9 47 9f 64 6c   f.......O.Z.G.dl
+    0010 - 5e fc 8a 10 b7 91 6a 97-1c 63 6b 7c d2 67 6e c2   ^.....j..ck|.gn.
+    0020 - 3f f6 37 d2 a6 e9 ef de-95 15 b8 bd 19 3b 34 14   ?.7..........;4.
+    0030 - 55 f8 2b 2d dc bc b6 63-42 73 b7 ed a5 e5 24 73   U.+-...cBs....$s
+    0040 - 11 07 f4 9d 32 44 9c 7a-52 ff 1f 5f 39 06 ec 28   ....2D.zR.._9..(
+    0050 - b7 8a fa 4a e2 52 92 a1-d5 7c c8 d8 28 e9 3f 22   ...J.R...|..(.?"
+    0060 - 84 82 f5 0b 49 66 58 c6-e0 dc 67 10 34 86 1d 5f   ....IfX...g.4.._
+    0070 - 40 86 cf 4d 3a e9 79 97-aa 45 f8 bb ad 41 71 5e   @..M:.y..E...Aq^
+    0080 - c8 52 8f 20 25 f4 2f b3-d5 8e d9 e2 b1 a4 74 80   .R. %./.......t.
+    0090 - 38 52 cb 7d e3 e3 26 53-cc 09 78 de f6 81 54 47   8R.}..&S..x...TG
+    00a0 - b1 89 4b 3a 4e a5 63 65-a7 da 7e 4a 4c 45 6d d2   ..K:N.ce..~JLEm.
+    00b0 - c0 92 2e 45 fe d1 0e 7c-2b 44 b4 76 9e 99 ef 01   ...E...|+D.v....
+    00c0 - 63 fb ca f1 21 78 1d d4-42 7d a3 d5 d5 a9 b8 d0   c...!x..B}......
+
+    Start Time: 1792465908
+    Timeout   : 7200 (sec)
+    Verify return code: 21 (unable to verify the first certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 7A5CA009F2CB921B0579F947EF1ECF9850A79A7DEEFF16403734BFE9EB6F217F
+    Session-ID-ctx: 
+    Resumption PSK: 893B170B6FA1B12DB178477247840E6FF82F3A78F6130DE065831653B519BF677688469B961A19AF77C27CC037921738
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 66 f1 05 9e f7 fd cb 91-4f 9c 5a c9 47 9f 64 6c   f.......O.Z.G.dl
+    0010 - 33 18 b2 66 0c c1 ac ec-5d d3 18 4e 4b 4c f0 7f   3..f....]..NKL..
+    0020 - 2a 87 35 09 78 66 0e 57-f5 d7 43 39 99 b3 52 0d   *.5.xf.W..C9..R.
+    0030 - e2 a8 8e a6 52 d9 fd 6f-0f 0c 0b 44 d7 24 31 9f   ....R..o...D.$1.
+    0040 - 56 e0 53 03 0f ad 25 87-1f b1 9f da a6 10 da d8   V.S...%.........
+    0050 - 01 a8 ea 6c 72 4e 1d 69-2a 62 88 15 67 f9 f0 dd   ...lrN.i*b..g...
+    0060 - cf ff d9 c5 ea 60 20 76-b3 a3 ea 5e 3e de 87 27   .....` v...^>..'
+    0070 - 57 0a 5d 52 0c 4c b9 1f-79 17 6f 31 78 3c df ff   W.]R.L..y.o1x<..
+    0080 - 47 4c 33 f7 05 c7 85 5e-8d 6a ce 1b e3 ff d8 93   GL3....^.j......
+    0090 - b0 3e d3 99 9a b8 be 19-37 a5 00 61 64 0f ce bf   .>......7..ad...
+    00a0 - 44 7a 68 9c ae 5c c2 6b-fb 3c cc 0f 7b 1d 98 51   Dzh..\.k.<..{..Q
+    00b0 - f5 65 91 31 b9 3f e4 06-d7 14 01 e4 13 9a d0 f6   .e.1.?..........
+    00c0 - 06 8d db 76 42 60 36 9e-3f 3e 96 d4 b6 f6 65 b6   ...vB`6.?>....e.
+
+    Start Time: 1792465908
+    Timeout   : 7200 (sec)
+    Verify return code: 21 (unable to verify the first certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+DONE

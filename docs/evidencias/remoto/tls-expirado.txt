@@ -1,0 +1,141 @@
+Connecting to 100.126.252.63
+CONNECTED(00000198)
+depth=2 C=MX, O=Proyecto CS, CN=Proyecto Root CA
+verify return:1
+depth=1 C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+verify return:1
+depth=0 CN=222835-cliente-servidor.duckdns.org
+verify error:num=10:certificate has expired
+notAfter=Jan 31 06:00:00 2024 GMT
+verify return:1
+depth=0 CN=222835-cliente-servidor.duckdns.org
+notAfter=Jan 31 06:00:00 2024 GMT
+verify return:1
+---
+Certificate chain
+ 0 s:CN=222835-cliente-servidor.duckdns.org
+   i:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Jan  1 06:00:00 2024 GMT; NotAfter: Jan 31 06:00:00 2024 GMT
+ 1 s:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   i:C=MX, O=Proyecto CS, CN=Proyecto Root CA
+   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Oct 19 09:51:54 2026 GMT; NotAfter: Oct 18 09:51:54 2031 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEpjCCAo6gAwIBAgIUD63ZOQoaoh3f5EFf23EnlBrrhUQwDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCTVgxFDASBgNVBAoMC1Byb3llY3RvIENTMSEwHwYDVQQD
+DBhQcm95ZWN0byBJbnRlcm1lZGlhdGUgQ0EwHhcNMjQwMTAxMDYwMDAwWhcNMjQw
+MTMxMDYwMDAwWjAuMSwwKgYDVQQDDCMyMjI4MzUtY2xpZW50ZS1zZXJ2aWRvci5k
+dWNrZG5zLm9yZzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKtiTcqa
+oECUNjqRpd+w6P41cC5HrLg97WXZQ3a1qlLUaPCDKtmJ+A+TbtrQGJTWrHK7IJ1P
+pBeIE7LdL/fam5ipV1VOyzYx0/gefexWu2/JTZpRq/MJXll9BFI8hjLtseC/7iDq
+fhL6t5tmRdRcamqlRmRnnz+dNV1v9FCakd5Oo0L5cm8Gp/j1HJ92HZaGtuyg8v86
+fcs6SOgQt0U10D2ZKgyDuNMhy8rFlwwOKRRIdyqUdZ8F9uP/iqYcIedZqFOIXlwi
+H3sjyEedn2AprHgUJRHkbLzKd7KeferIv3dBUyDBsexgbUGH6E4N+WyTgPuC0pld
+hZH4TYzSNlBpgbECAwEAAaOBozCBoDAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIF
+oDATBgNVHSUEDDAKBggrBgEFBQcDATAuBgNVHREEJzAlgiMyMjI4MzUtY2xpZW50
+ZS1zZXJ2aWRvci5kdWNrZG5zLm9yZzAdBgNVHQ4EFgQUW3CO+7g46sfZOcfrRs7I
+ZHoBztwwHwYDVR0jBBgwFoAUenm1L0+CzcmIwSvUShmwJ2OOJpEwDQYJKoZIhvcN
+AQELBQADggIBAIkf6ur+IyXvXG7QgnnGd640rp68dtwpPlQXeEEf+8nGSpMRCq4P
+brq+SDoxipK/58EP0PC+BToQSsd5NBW0mLewDhwqHw7OmzCEec8NGtcwS8KFbTmE
+Y2ml8KwhsthJ2JltG500Ab/R4xsvBV/OdEtZu9pOx9GhRBZw4HY1levTWFySuzQi
+T9siCACrY0hKNzJ19hjKQIsvKOvc1v37SJ581S0aSsUB7mORaiU1wt5VGaklxYvP
+RRkgIGJd9HnGNY4TpjHLFwb8Pir4EIGRgD343ZSjyPpH2vdJF2Uft0jBysKwCr7G
+7RDgi9Jiua4NxXNS+h86b+UadBZ4FXFrCIwZOuwT0vx4OATyfE752EfyCa2Id56j
+PIlHbJe4Hi3baomfv2+negCjjtDrMxSNtH5vXGY+hwkNg8Vl/jPB6HJgEd12dRZI
+JeW3NNa6qKxm31MykDthyWl/Aj5e5YexJvoSFN4VNRFuSvcKgo6EvzvUzxHHsz16
+On1tuknG9d8Z4sw65q0LIFwggcqPbvRcuNj6hXQK3xU0608XZRLEvH0s5ZfZDJWq
+5pm6ude2fh8TTRTWl2bChsrUzHCy7jQkU5yMLH7A/TQuYbDUhknjLT2Li26pdwF5
+iobjpCycG9pzYuK5HtgP891xH48G6KarXQJMOPvnvo26szJUBt/uilF0
+-----END CERTIFICATE-----
+subject=CN=222835-cliente-servidor.duckdns.org
+issuer=C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 3181 bytes and written 430 bytes
+Verification error: certificate has expired
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 10 (certificate has expired)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 60E494D7A446216564C4D2FB28CAA0339F39D5E822D270E185C426CF982787F2
+    Session-ID-ctx: 
+    Resumption PSK: EE20AE3C94E6261EFB82674F9256106D7EDAE30588FCA66670C2D3539F2BBCAD8EE97C136CA80662975331786CAF2BA3
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 7c dd 81 b8 9c 5d 51 47-ed e1 62 91 1a bb 54 56   |....]QG..b...TV
+    0010 - 42 c6 73 bb e9 c1 38 b2-60 05 8c a4 28 50 5b 9e   B.s...8.`...(P[.
+    0020 - 58 a3 2c 0e 83 b5 f2 3a-85 e9 e2 4a 89 6d 19 b2   X.,....:...J.m..
+    0030 - 75 8c 37 01 75 b9 10 83-a5 61 69 f0 17 db 57 d6   u.7.u....ai...W.
+    0040 - 47 9b 81 97 72 ed 16 00-ae 9d 44 e1 d7 90 1e 12   G...r.....D.....
+    0050 - 9f 60 55 42 87 be 93 de-a7 62 23 1f 33 ac 17 72   .`UB.....b#.3..r
+    0060 - 99 48 40 40 9d 17 c5 48-4a a4 11 fb 79 02 7c a9   .H@@...HJ...y.|.
+    0070 - 7d e5 f3 55 c9 29 a9 5b-46 df f1 8b 30 2b 0c eb   }..U.).[F...0+..
+    0080 - 56 a4 3b e0 bc f6 23 dc-eb 69 4e fd df 45 94 b5   V.;...#..iN..E..
+    0090 - 3b 9b 92 b2 48 c1 2f 62-77 aa 1f d5 ef 92 80 02   ;...H./bw.......
+    00a0 - 00 42 ce a5 4c ee b7 aa-b4 24 91 c2 53 05 47 f2   .B..L....$..S.G.
+    00b0 - 8f c2 22 3e be e1 67 5a-53 0e 99 f1 b3 53 e1 24   ..">..gZS....S.$
+    00c0 - a0 3d 7e fa bd 1a 7a 49-fd 35 1c 6a e1 e8 03 68   .=~...zI.5.j...h
+
+    Start Time: 1792465835
+    Timeout   : 7200 (sec)
+    Verify return code: 10 (certificate has expired)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 616E0CFC1EB1FEDE5C4F3D2613C77264B9CB2D089738801F52535C5D08A6B261
+    Session-ID-ctx: 
+    Resumption PSK: 139CF1CAA581EC425047303F259C6B002CDA5AB7230FCD2F735FF6738174E25DA6763051566078060C8BD25C58E07CE4
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 7c dd 81 b8 9c 5d 51 47-ed e1 62 91 1a bb 54 56   |....]QG..b...TV
+    0010 - c1 ac 18 7a e9 e5 2f 38-29 32 cb 4e a5 89 34 0c   ...z../8)2.N..4.
+    0020 - 0e 71 06 23 4a 45 40 24-46 6a 7e 9c 01 f2 42 8f   .q.#JE@$Fj~...B.
+    0030 - ba 30 49 bc 54 cd 28 a6-64 11 c3 ee a9 66 1e d1   .0I.T.(.d....f..
+    0040 - 50 2e 49 0a 0c 02 94 64-42 34 61 c2 2f 1c af 71   P.I....dB4a./..q
+    0050 - 6e 47 df 56 57 c0 64 8c-9e 86 6e 17 47 ec 6d 54   nG.VW.d...n.G.mT
+    0060 - 18 f8 a6 b7 da 43 87 00-53 1d 2f 36 4b 02 46 a9   .....C..S./6K.F.
+    0070 - 6d e8 68 85 c6 1c 07 56-a9 e7 e0 1f bf 3a fb 4d   m.h....V.....:.M
+    0080 - 3e 88 ec 20 18 f6 55 26-7d 1b ce 3e f0 40 f8 3c   >.. ..U&}..>.@.<
+    0090 - 3c 8e f0 42 84 ae 64 97-cc c4 b8 fc 8f a5 ea 96   <..B..d.........
+    00a0 - b0 c7 fc 63 4a 9c 32 c5-e2 39 09 7a 71 e4 5e a8   ...cJ.2..9.zq.^.
+    00b0 - 71 54 91 8b 75 38 1f ea-a0 2c ed 54 81 d5 0a 91   qT..u8...,.T....
+    00c0 - 2c b7 b7 b0 db 9d ea 7d-b5 5c 03 7a 1d e5 40 1c   ,......}.\.z..@.
+
+    Start Time: 1792465835
+    Timeout   : 7200 (sec)
+    Verify return code: 10 (certificate has expired)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+DONE

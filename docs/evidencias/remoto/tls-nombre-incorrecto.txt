@@ -1,0 +1,139 @@
+Connecting to 100.126.252.63
+CONNECTED(0000019C)
+depth=0 C=MX, O=Proyecto CS, CN=otro-servidor.com
+verify error:num=62:hostname mismatch
+verify return:1
+depth=2 C=MX, O=Proyecto CS, CN=Proyecto Root CA
+verify return:1
+depth=1 C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+verify return:1
+depth=0 C=MX, O=Proyecto CS, CN=otro-servidor.com
+verify return:1
+---
+Certificate chain
+ 0 s:C=MX, O=Proyecto CS, CN=otro-servidor.com
+   i:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Oct 19 10:02:55 2026 GMT; NotAfter: Oct 19 10:02:55 2027 GMT
+ 1 s:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   i:C=MX, O=Proyecto CS, CN=Proyecto Root CA
+   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Oct 19 09:51:54 2026 GMT; NotAfter: Oct 18 09:51:54 2031 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEpTCCAo2gAwIBAgIUD63ZOQoaoh3f5EFf23EnlBrrhUUwDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCTVgxFDASBgNVBAoMC1Byb3llY3RvIENTMSEwHwYDVQQD
+DBhQcm95ZWN0byBJbnRlcm1lZGlhdGUgQ0EwHhcNMjYxMDE5MTAwMjU1WhcNMjcx
+MDE5MTAwMjU1WjA/MQswCQYDVQQGEwJNWDEUMBIGA1UECgwLUHJveWVjdG8gQ1Mx
+GjAYBgNVBAMMEW90cm8tc2Vydmlkb3IuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC
+AQ8AMIIBCgKCAQEAs7dUNnQ89mK315inKUXXkte9wtob7H7fE3kH28gsQEv5yCW9
+x5mWi3Y1iVBxZKGOD+xHAdl1+PmxCuMUcQaXj0LyGfByQlp4w6Bi+8/xw23ImCXl
+2EUPIKrpAX/IJe2i/4Tath6SQqsu9Hllu7oTtkDQCyNbGIU8lVcUR9DMLfAOFIXE
+xEFxBhcpCjmoAvZMR+3wneamxIdCouI2be8qDABNayzd7B1ZWhF1ptp9uwNeWX9R
+IugWEcIN0f+nXpW2+Vf150x4gBR2G4SMfZHwPtuqIQ46xD97p8lBFH0s3t5IxoXK
+0HPdquyDzNyMqiMnq1FvTFuRdzBP+taY3ICinQIDAQABo4GRMIGOMAkGA1UdEwQC
+MAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMBwGA1UdEQQV
+MBOCEW90cm8tc2Vydmlkb3IuY29tMB0GA1UdDgQWBBQxq5YpQttg/zjg+SSuPowj
+9D7vRDAfBgNVHSMEGDAWgBR6ebUvT4LNyYjBK9RKGbAnY44mkTANBgkqhkiG9w0B
+AQsFAAOCAgEALVfJCHqIguTymF66LZT+fcu0mJ8/kfDcduYUy0nx5c+SvjnrpFHq
+X8OO0DwUAs8aP3V+yRcBZCT+3E0NU5A5/h/ESsKJVwfndMZzGpPD8MLKY4mG+64T
+mGWEGKb7gte50NgZIXMsPsZVmBGqa85lt7OZe+sz+Yw2Yh2LOR1lAJU/m6all6LL
+ZZNvoByLHCc3MucEGnwxcBoV7jLdHO3RUKuP3skmYDBUT00UnBCZq0IoURy27at0
+Jz7ARyKh45bexuR/fpVh/DAB1tvNVH30PkErE6V+cYqGiko/tATMkinbDBRoOSX1
+miV5/Y1/96tXlDU/cpBx5uE242qKv21Sxw/cxTQpXNr3gDBoVcpGE2Jl7Sn1WWlB
+p5qzSmwZFbCYrAYYlr8i9wTdI9+x8EkKj26+1074gJrHexQuCFw2m4fRQ7mhUfZT
+1I4xoL+DhNQ3tRYHIHOy07fHf0+XygLWaX8jk03yIN7qQNgcS1k4MG8S1OWwVLQM
+tPW9PsvSUVlrakeMJhoW6AgoGeowYD8ckAMHBJoG5PQJkumSN/Y3IsbuWr9YkQ62
+hUjojH8vfOYqq49YX5hc/52a3+WyLNYo4Y+G3pI1c3kRdkAp6K/No4Mu9iZNb7a8
+YFFAAam1czW1Yyx39IOgOhHMv5qpbiww7D4/SxeyVD/xd08p9BlKjQA=
+-----END CERTIFICATE-----
+subject=C=MX, O=Proyecto CS, CN=otro-servidor.com
+issuer=C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 3180 bytes and written 430 bytes
+Verification error: hostname mismatch
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 62 (hostname mismatch)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: CCE920CF5A4388128350D251BFFBF1B8FCCFBD10FC19DB3CF7DE9407432C3F6C
+    Session-ID-ctx: 
+    Resumption PSK: 837D7169A5E723F3F55486D46D2C2C070924E1B17AC29EEF9B1F01384447D593C5DB4CFD11874B6AD4AD13BDC674A771
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - ee 5a b2 bc ac 1d 77 2f-79 61 fd 5f 5c 43 5d 3e   .Z....w/ya._\C]>
+    0010 - 82 7a 5c ed f3 72 0b a2-47 50 0a 70 01 8a 15 ee   .z\..r..GP.p....
+    0020 - 55 b0 14 af 55 4b f8 54-5a 77 28 3c 18 66 95 fc   U...UK.TZw(<.f..
+    0030 - 1b 95 b0 8e b1 3c df 99-dd 4b 5b 98 1b d2 3e 52   .....<...K[...>R
+    0040 - 44 1e 50 b5 c5 e7 db 82-44 00 eb 97 c3 91 d0 48   D.P.....D......H
+    0050 - 17 f2 fc 92 81 d1 48 58-e3 3f 01 f2 10 08 63 b6   ......HX.?....c.
+    0060 - 77 ad 66 3b 3b db f7 e1-6b 81 a8 2f 09 fb bd f3   w.f;;...k../....
+    0070 - b1 e3 2c c7 ce ca 03 81-d7 8c b8 c4 53 2c 87 9c   ..,.........S,..
+    0080 - 71 41 d4 db 5c d6 0d 38-d3 7c ac 72 4b 9e 5a 3b   qA..\..8.|.rK.Z;
+    0090 - 51 c2 6c aa 87 a8 44 2d-e3 53 b2 90 8d 4e 90 c6   Q.l...D-.S...N..
+    00a0 - 8b f2 be 95 2c aa 14 49-75 84 da 2d c2 f3 84 26   ....,..Iu..-...&
+    00b0 - c1 0d 24 5e 33 cd 15 cb-3a aa fe b1 a5 01 63 50   ..$^3...:.....cP
+    00c0 - 13 0d 12 39 8c 3d 5d 7d-08 e9 01 b1 30 f6 6d 0d   ...9.=]}....0.m.
+
+    Start Time: 1792465872
+    Timeout   : 7200 (sec)
+    Verify return code: 62 (hostname mismatch)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: C09B2BAAA6EEB8F58C48BE1A0E04A93FA4916C4C5EBA72B93DA116435051A0F9
+    Session-ID-ctx: 
+    Resumption PSK: A9E64D07B62D3AFA706CBEBC7E123EEFDC1C0667139CC007008D4B271F98E92AF1E0EE3D75DCE31F2A00DB92694DEF22
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - ee 5a b2 bc ac 1d 77 2f-79 61 fd 5f 5c 43 5d 3e   .Z....w/ya._\C]>
+    0010 - e6 4b 83 af bd 3c 00 d7-c8 4e 24 36 ac b1 2e 49   .K...<...N$6...I
+    0020 - 4a 7a 60 9b b9 02 d9 b9-be e4 80 ca 2b 56 cb 95   Jz`.........+V..
+    0030 - 57 18 af 3e 6d 5b 83 7e-fb 12 e5 27 14 cf 33 2b   W..>m[.~...'..3+
+    0040 - 5a 4e 20 ea a7 11 e2 5c-cb c3 7f 4f 53 c5 79 a6   ZN ....\...OS.y.
+    0050 - 00 67 de a5 74 5b bc 9f-ef 13 72 f8 70 0c b2 38   .g..t[....r.p..8
+    0060 - f3 4c 69 e0 97 54 4d ee-d9 23 79 93 be cc 95 82   .Li..TM..#y.....
+    0070 - ed 9f 0e 7d 20 ad b4 6a-e1 1d 84 ec 8c 74 d1 71   ...} ..j.....t.q
+    0080 - e0 a8 45 1a 22 f8 79 e9-b5 34 17 97 5c f2 ac 59   ..E.".y..4..\..Y
+    0090 - 1b 8b a9 9e 1e 1e 64 a7-d9 fc 5e 1a dd 79 8a e9   ......d...^..y..
+    00a0 - 64 4f b6 dd 31 d0 73 ae-6e 63 e1 9f b2 77 82 c9   dO..1.s.nc...w..
+    00b0 - c0 66 64 91 ce 1e 50 ad-a0 4d 01 17 de f8 80 38   .fd...P..M.....8
+    00c0 - ca b6 c0 75 71 f8 fa 76-3f 1a e4 fa b5 89 ef ee   ...uq..v?.......
+
+    Start Time: 1792465872
+    Timeout   : 7200 (sec)
+    Verify return code: 62 (hostname mismatch)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+DONE
