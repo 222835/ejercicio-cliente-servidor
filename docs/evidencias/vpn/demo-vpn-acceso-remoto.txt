@@ -1,0 +1,48 @@
+# Comando: python demo_vpn.py --remota
+# Fecha:   2026-10-19 19:08:58 -0600
+# Commit:  0e1bf4e
+# Python:  Python 3.13.16
+
+──────────────────────────────────────────────────── 1. VPN de acceso remoto ─────────────────────────────────────────────────────
+╭───────────────────────────────────── Así se guarda una contraseña (nunca en texto plano) ──────────────────────────────────────╮
+│ usuario: beto                                                                                                                  │
+│ sal:  bea03628fbf937f5d21bfa7b79442436                                                                                         │
+│ hash: 378a859d033f05e09f362e0ca907fedd1bbda98717a622e8579c646240172fd2                                                         │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Autenticación (¿quién eres?)
+  ✔ beto: conectado, IP virtual 10.8.0.2
+  ✘ beto: Usuario o contraseña incorrectos
+  ✘ mallory: Usuario o contraseña incorrectos
+
+Autorización (¿qué puedes hacer?) después de conectar
+                     Acceso real a recursos internos por la VPN                     
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃                  ┃            ┃ archivos  ┃   wiki    ┃ base_datos ┃ panel_admin ┃
+┃ Usuario (rol)    ┃ IP virtual ┃ 10.0.0.10 ┃ 10.0.0.20 ┃ 10.0.0.30  ┃  10.0.0.40  ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ ana (admin)      │ 10.8.0.3   │     ✔     │     ✔     │     ✔      │      ✔      │
+│ beto (empleado)  │ 10.8.0.2   │     ✔     │     ✔     │     ✘      │      ✘      │
+│ carla (invitado) │ 10.8.0.4   │     ✘     │     ✔     │     ✘      │      ✘      │
+└──────────────────┴────────────┴───────────┴───────────┴────────────┴─────────────┘
+
+Operaciones administrativas
+  ✔ ana lista sesiones: [('beto', '10.8.0.2'), ('ana', '10.8.0.3'), ('carla', '10.8.0.4')]
+  ✘ 'beto' no puede ejecutar 'listar_sesiones'
+────────────────────────────────────────── 4. Registro de eventos (logs/eventos.jsonl) ───────────────────────────────────────────
+┏━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ hora     ┃ componente ┃ evento                    ┃ detalle                                                                    ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 01:09:02 │ authz      │ acceso_permitido          │ usuario=beto, rol=empleado, recurso=archivos, ip_virtual=10.8.0.2          │
+│ 01:09:02 │ authz      │ acceso_permitido          │ usuario=beto, rol=empleado, recurso=wiki, ip_virtual=10.8.0.2              │
+│ 01:09:02 │ authz      │ acceso_denegado           │ usuario=beto, rol=empleado, recurso=base_datos, ip_virtual=10.8.0.2        │
+│ 01:09:02 │ authz      │ acceso_denegado           │ usuario=beto, rol=empleado, recurso=panel_admin, ip_virtual=10.8.0.2       │
+│ 01:09:02 │ authz      │ acceso_denegado           │ usuario=carla, rol=invitado, recurso=archivos, ip_virtual=10.8.0.4         │
+│ 01:09:02 │ authz      │ acceso_permitido          │ usuario=carla, rol=invitado, recurso=wiki, ip_virtual=10.8.0.4             │
+│ 01:09:02 │ authz      │ acceso_denegado           │ usuario=carla, rol=invitado, recurso=base_datos, ip_virtual=10.8.0.4       │
+│ 01:09:02 │ authz      │ acceso_denegado           │ usuario=carla, rol=invitado, recurso=panel_admin, ip_virtual=10.8.0.4      │
+│ 01:09:02 │ authz      │ acceso_permitido          │ usuario=ana, rol=admin, recurso=panel_admin, operacion=listar_sesiones     │
+│ 01:09:02 │ admin      │ operacion_administrativa  │ usuario=ana, operacion=listar_sesiones                                     │
+│ 01:09:02 │ authz      │ acceso_denegado           │ usuario=beto, rol=empleado, recurso=panel_admin, operacion=listar_sesiones │
+│ 01:09:02 │ admin      │ operacion_admin_rechazada │ usuario=beto, operacion=listar_sesiones                                    │
+└──────────┴────────────┴───────────────────────────┴────────────────────────────────────────────────────────────────────────────┘

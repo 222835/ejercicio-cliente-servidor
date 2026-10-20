@@ -131,6 +131,29 @@ Ajustes hechos al módulo de la Parte 3 para integrarlo:
 | `test_sitio_a_sitio.py` | Tráfico entre sitios en ambos sentidos, IP internas ocultas en Internet, gateway con PSK incorrecta rechazado, uso del modo túnel de la Parte 3, replay detectado (duplicado y fuera de la ventana), alteración del contenido o del número de secuencia detectada por GCM, paquete falso que no bloquea al legítimo, paquetes fuera de orden dentro de la ventana, rutas inválidas, SPI desconocido |
 | `test_ipsec.py` (Parte 3) | Modo transporte y túnel, alteración detectada por GCM, anti-replay, recepción en el orden correcto (un paquete falso no consume el número de secuencia del legítimo) |
 
+## Evidencias
+
+Las salidas de las pruebas y las demos están guardadas en `docs/evidencias/` (cada archivo indica el comando, la fecha y el commit con que se generó):
+
+| Archivo | Qué demuestra | Req. |
+|---|---|:-:|
+| `vpn/pruebas-autenticacion-autorizacion.txt` | Login válido e inválido, bloqueo, permisos por rol, autenticado ≠ autorizado, log sin contraseñas | 8, 9 |
+| `vpn/pruebas-vpn-acceso-remoto.txt` | Conexión VPN, IP virtual, acceso permitido y denegado después de conectar, sesiones inválidas | 6, 9 |
+| `vpn/pruebas-vpn-sitio-a-sitio.txt` | Tráfico entre sitios, gateway impostor, replay y alteración rechazados | 7, 9 |
+| `vpn/demo-vpn-acceso-remoto.txt` | Tabla de accesos por rol y operaciones administrativas | 6, 8 |
+| `vpn/demo-vpn-sitio-a-sitio.txt` | El mismo paquete visto antes del gateway, en Internet y después del gateway | 7 |
+| `vpn/demo-vpn-completa.txt` | Ambas VPN, tabla comparativa y últimos eventos | 6, 7, 8 |
+| `vpn/eventos.jsonl` | Registro real generado por las demos (JSON por línea) | 8 |
+| `ipsec/pruebas-ipsec.txt` | Modos transporte y túnel, GCM, anti-replay | 5, 9 |
+| `ipsec/demo-transporte-vs-tunel.txt` | Paquete original, en modo transporte y en modo túnel lado a lado | 5 |
+| `pruebas-todas.txt` | Las 49 pruebas juntas | 9 |
+
+Para regenerarlas (desde la raíz, con el entorno virtual activo):
+
+```bash
+bash docs/evidencias/generar_evidencias_vpn_ipsec.sh
+```
+
 ## Limitaciones de seguridad
 
 - **Es una simulación.** Ni la VPN ni el túnel crean interfaces de red reales ni mueven paquetes por la red; todo ocurre dentro del proceso de Python. La fila "lo que vería un sniffer" de la demo es una representación generada por el programa, no una captura de Wireshark.
