@@ -1,0 +1,84 @@
+# Comando: python demo_vpn.py
+# Fecha:   2026-10-19 19:10:56 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
+
+──────────────────────────────────────────────────────────────────────────────────────────────────── 1. VPN de acceso remoto ────────────────────────────────────────────────────────────────────────────────────────────────────
+╭───────────────────────────────────────────────────────────────────────────────────── Así se guarda una contraseña (nunca en texto plano) ─────────────────────────────────────────────────────────────────────────────────────╮
+│ usuario: beto                                                                                                                                                                                                                 │
+│ sal:  f52c136d4f20ff9487e1128301fa5882                                                                                                                                                                                        │
+│ hash: e46716c7de076c7fc0d7034f024552a5ef13abcf667a1300eace5d9e7af67eba                                                                                                                                                        │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Autenticación (¿quién eres?)
+  ✔ beto: conectado, IP virtual 10.8.0.2
+  ✘ beto: Usuario o contraseña incorrectos
+  ✘ mallory: Usuario o contraseña incorrectos
+
+Autorización (¿qué puedes hacer?) después de conectar
+                     Acceso real a recursos internos por la VPN                     
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃                  ┃            ┃ archivos  ┃   wiki    ┃ base_datos ┃ panel_admin ┃
+┃ Usuario (rol)    ┃ IP virtual ┃ 10.0.0.10 ┃ 10.0.0.20 ┃ 10.0.0.30  ┃  10.0.0.40  ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ ana (admin)      │ 10.8.0.3   │     ✔     │     ✔     │     ✔      │      ✔      │
+│ beto (empleado)  │ 10.8.0.2   │     ✔     │     ✔     │     ✘      │      ✘      │
+│ carla (invitado) │ 10.8.0.4   │     ✘     │     ✔     │     ✘      │      ✘      │
+└──────────────────┴────────────┴───────────┴───────────┴────────────┴─────────────┘
+
+Operaciones administrativas
+  ✔ ana lista sesiones: [('beto', '10.8.0.2'), ('ana', '10.8.0.3'), ('carla', '10.8.0.4')]
+  ✘ 'beto' no puede ejecutar 'listar_sesiones'
+───────────────────────────────────────────────────────────────────────────────────────────────────── 2. VPN sitio a sitio ──────────────────────────────────────────────────────────────────────────────────────────────────────
+  [10.1.0.0/24] ── GW-Matriz 198.51.100.1 ══[ túnel IPSec ]══ 203.0.113.1 GW-Sucursal ── [10.2.0.0/24]
+
+  ✘ Gateway impostor: GW-Falso no pudo autenticarse (PSK distinta)
+  ✔ Gateways autenticados con PSK (desafío-respuesta HMAC); claves derivadas con HKDF
+  Cifrado y anti-replay: módulo IPSec de la Parte 3 (IPSecSA + modo_tunel)
+                                        El mismo paquete visto en cada punto                                        
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Punto                         ┃ Origen       ┃ Destino     ┃ Contenido                                           ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Red matriz (antes del GW)     │ 10.1.0.5     │ 10.2.0.7    │ Reporte de ventas Q3                                │
+│ Internet (lo que vería        │ 198.51.100.1 │ 203.0.113.1 │ ESP spi=0x76873e61 seq=1                            │
+│ un sniffer)                   │              │             │ fde476356436b126e13a520efa53b90258619b97ec5a58dd... │
+│ Red sucursal (después del GW) │ 10.1.0.5     │ 10.2.0.7    │ Reporte de ventas Q3                                │
+└───────────────────────────────┴──────────────┴─────────────┴─────────────────────────────────────────────────────┘
+
+Ataques
+  ✘ Reenvío del mismo paquete: Replay detectado: seq=1 ya recibido o fuera de la ventana
+  ✘ Paquete modificado en tránsito: Integridad fallida: el paquete fue alterado
+  ✘ Destino fuera de la VPN: No hay túnel hacia 8.8.8.8
+────────────────────────────────────────────────────────────────────────────────────────────── 3. Acceso remoto vs. sitio a sitio ───────────────────────────────────────────────────────────────────────────────────────────────
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Aspecto            ┃ Acceso remoto                     ┃ Sitio a sitio                         ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Conecta            │ Un usuario → red interna          │ Red completa ↔ red completa           │
+├────────────────────┼───────────────────────────────────┼───────────────────────────────────────┤
+│ Quién se autentica │ La persona (usuario + contraseña) │ Los gateways (PSK)                    │
+├────────────────────┼───────────────────────────────────┼───────────────────────────────────────┤
+│ Dirección          │ IP virtual 10.8.0.x por sesión    │ Rutas fijas 10.1.0.0/24 ↔ 10.2.0.0/24 │
+├────────────────────┼───────────────────────────────────┼───────────────────────────────────────┤
+│ Duración           │ Sesión con vencimiento            │ Túnel permanente                      │
+├────────────────────┼───────────────────────────────────┼───────────────────────────────────────┤
+│ Control de acceso  │ Por rol de usuario                │ Por red/ruta                          │
+├────────────────────┼───────────────────────────────────┼───────────────────────────────────────┤
+│ Equipos finales    │ Necesitan cliente VPN             │ No saben que existe la VPN            │
+└────────────────────┴───────────────────────────────────┴───────────────────────────────────────┘
+────────────────────────────────────────────────────────────────────────────────────────── 4. Registro de eventos (logs/eventos.jsonl) ──────────────────────────────────────────────────────────────────────────────────────────
+┏━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ hora     ┃ componente ┃ evento                ┃ detalle                                                                                                      ┃
+┡━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ 01:10:57 │ vpn_s2s    │ negociacion_tunel     │ gateway=GW-Matriz, par=GW-Sucursal, ip_local=198.51.100.1, ip_par=203.0.113.1                                │
+│ 01:10:57 │ vpn_s2s    │ tunel_establecido     │ gateway=GW-Matriz, par=GW-Sucursal, red_local=10.1.0.0/24, red_remota=10.2.0.0/24                            │
+│ 01:10:57 │ ipsec      │ paquete_cifrado       │ modo=tunel, spi=1988574817, secuencia=1                                                                      │
+│ 01:10:57 │ vpn_s2s    │ paquete_enviado_tunel │ gateway=GW-Matriz, ip_origen=10.1.0.5, ip_destino=10.2.0.7, spi=0x76873e61                                   │
+│ 01:10:57 │ vpn_s2s    │ paquete_entregado     │ gateway=GW-Sucursal, ip_origen=10.1.0.5, ip_destino=10.2.0.7, seq=1                                          │
+│ 01:10:57 │ ipsec      │ replay_detectado      │ spi=1988574817, motivo=Paquete duplicado, secuencia=1                                                        │
+│ 01:10:57 │ vpn_s2s    │ replay_detectado      │ gateway=GW-Sucursal, spi=0x76873e61, seq=1, motivo=Replay detectado: seq=1 ya recibido o fuera de la ventana │
+│ 01:10:57 │ ipsec      │ paquete_cifrado       │ modo=tunel, spi=1988574817, secuencia=2                                                                      │
+│ 01:10:57 │ vpn_s2s    │ paquete_enviado_tunel │ gateway=GW-Matriz, ip_origen=10.1.0.5, ip_destino=10.2.0.7, spi=0x76873e61                                   │
+│ 01:10:57 │ ipsec      │ integridad_fallida    │ spi=1988574817, motivo=Alteracion detectada en payload, secuencia=2                                          │
+│ 01:10:57 │ vpn_s2s    │ paquete_rechazado     │ gateway=GW-Sucursal, spi=0x76873e61, seq=2, motivo=Integridad fallida: el paquete fue alterado               │
+│ 01:10:57 │ vpn_s2s    │ ruta_rechazada        │ gateway=GW-Matriz, ip_destino=8.8.8.8, motivo=sin_tunel_hacia_destino                                        │
+└──────────┴────────────┴───────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

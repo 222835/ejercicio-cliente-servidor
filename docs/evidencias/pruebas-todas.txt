@@ -1,0 +1,62 @@
+# Comando: python -m pytest -v
+# Fecha:   2026-10-19 19:10:58 -0600
+# Commit:  cfb8ba0
+# Python:  Python 3.14.8
+
+====================================================================================================== test session starts ======================================================================================================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0 -- /home/nice/ejercicio-cliente-servidor/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/nice/ejercicio-cliente-servidor
+collecting ... collected 49 items
+
+tests/test_acceso_remoto.py::test_conexion_valida_asigna_ip_virtual PASSED                                                                                                                                                [  2%]
+tests/test_acceso_remoto.py::test_ips_virtuales_distintas PASSED                                                                                                                                                          [  4%]
+tests/test_acceso_remoto.py::test_conexion_invalida_no_crea_sesion PASSED                                                                                                                                                 [  6%]
+tests/test_acceso_remoto.py::test_empleado_acceso_permitido_y_denegado PASSED                                                                                                                                             [  8%]
+tests/test_acceso_remoto.py::test_invitado_solo_wiki PASSED                                                                                                                                                               [ 10%]
+tests/test_acceso_remoto.py::test_admin_accede_a_todo PASSED                                                                                                                                                              [ 12%]
+tests/test_acceso_remoto.py::test_operacion_admin_permitida_y_registrada PASSED                                                                                                                                           [ 14%]
+tests/test_acceso_remoto.py::test_operacion_admin_denegada_a_empleado PASSED                                                                                                                                              [ 16%]
+tests/test_acceso_remoto.py::test_sesion_falsa_o_cerrada PASSED                                                                                                                                                           [ 18%]
+tests/test_acceso_remoto.py::test_sesion_vencida PASSED                                                                                                                                                                   [ 20%]
+tests/test_acceso_remoto.py::test_ip_se_libera_al_desconectar PASSED                                                                                                                                                      [ 22%]
+tests/test_acceso_remoto.py::test_reconexion_reutiliza_la_ip_mas_baja PASSED                                                                                                                                              [ 24%]
+tests/test_auth.py::test_contrasena_no_se_guarda_en_texto_plano PASSED                                                                                                                                                    [ 26%]
+tests/test_auth.py::test_misma_contrasena_distinta_sal_distinto_hash PASSED                                                                                                                                               [ 28%]
+tests/test_auth.py::test_login_valido PASSED                                                                                                                                                                              [ 30%]
+tests/test_auth.py::test_login_contrasena_incorrecta PASSED                                                                                                                                                               [ 32%]
+tests/test_auth.py::test_login_usuario_inexistente_mismo_mensaje PASSED                                                                                                                                                   [ 34%]
+tests/test_auth.py::test_bloqueo_tras_intentos_fallidos PASSED                                                                                                                                                            [ 36%]
+tests/test_auth.py::test_autorizacion_por_rol[ana-base_datos-True] PASSED                                                                                                                                                 [ 38%]
+tests/test_auth.py::test_autorizacion_por_rol[ana-panel_admin-True] PASSED                                                                                                                                                [ 40%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-archivos-True] PASSED                                                                                                                                                  [ 42%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-wiki-True] PASSED                                                                                                                                                      [ 44%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-base_datos-False] PASSED                                                                                                                                               [ 46%]
+tests/test_auth.py::test_autorizacion_por_rol[beto-panel_admin-False] PASSED                                                                                                                                              [ 48%]
+tests/test_auth.py::test_autorizacion_por_rol[carla-wiki-True] PASSED                                                                                                                                                     [ 51%]
+tests/test_auth.py::test_autorizacion_por_rol[carla-archivos-False] PASSED                                                                                                                                                [ 53%]
+tests/test_auth.py::test_autenticado_no_implica_autorizado PASSED                                                                                                                                                         [ 55%]
+tests/test_auth.py::test_log_es_json_por_linea PASSED                                                                                                                                                                     [ 57%]
+tests/test_ipsec.py::test_modo_transporte_cifrado_y_descifrado PASSED                                                                                                                                                     [ 59%]
+tests/test_ipsec.py::test_modo_tunel_cifrado_y_descifrado PASSED                                                                                                                                                          [ 61%]
+tests/test_ipsec.py::test_alteracion_paquete_falla PASSED                                                                                                                                                                 [ 63%]
+tests/test_ipsec.py::test_anti_replay_rechaza_duplicados_y_viejos PASSED                                                                                                                                                  [ 65%]
+tests/test_ipsec.py::test_recibir_paquete_legitimo_y_rechazar_replay PASSED                                                                                                                                               [ 67%]
+tests/test_ipsec.py::test_paquete_falso_no_consume_el_numero_de_secuencia PASSED                                                                                                                                          [ 69%]
+tests/test_ipsec.py::test_secuencia_cero_invalida PASSED                                                                                                                                                                  [ 71%]
+tests/test_sitio_a_sitio.py::test_trafico_entre_sitios PASSED                                                                                                                                                             [ 73%]
+tests/test_sitio_a_sitio.py::test_trafico_en_ambos_sentidos PASSED                                                                                                                                                        [ 75%]
+tests/test_sitio_a_sitio.py::test_internet_solo_ve_ips_de_gateways PASSED                                                                                                                                                 [ 77%]
+tests/test_sitio_a_sitio.py::test_psk_distinta_no_establece_tunel PASSED                                                                                                                                                  [ 79%]
+tests/test_sitio_a_sitio.py::test_replay_rechazado PASSED                                                                                                                                                                 [ 81%]
+tests/test_sitio_a_sitio.py::test_paquete_alterado_rechazado PASSED                                                                                                                                                       [ 83%]
+tests/test_sitio_a_sitio.py::test_paquete_alterado_no_consume_secuencia PASSED                                                                                                                                            [ 85%]
+tests/test_sitio_a_sitio.py::test_paquetes_fuera_de_orden_dentro_de_ventana PASSED                                                                                                                                        [ 87%]
+tests/test_sitio_a_sitio.py::test_destino_sin_tunel PASSED                                                                                                                                                                [ 89%]
+tests/test_sitio_a_sitio.py::test_spi_desconocido PASSED                                                                                                                                                                  [ 91%]
+tests/test_sitio_a_sitio.py::test_usa_el_modo_tunel_de_la_parte3 PASSED                                                                                                                                                   [ 93%]
+tests/test_sitio_a_sitio.py::test_paquete_viejo_fuera_de_ventana PASSED                                                                                                                                                   [ 95%]
+tests/test_sitio_a_sitio.py::test_numero_de_secuencia_alterado PASSED                                                                                                                                                     [ 97%]
+tests/test_sitio_a_sitio.py::test_paquete_falso_no_bloquea_al_legitimo PASSED                                                                                                                                             [100%]
+
+====================================================================================================== 49 passed in 0.13s =======================================================================================================
