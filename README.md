@@ -32,6 +32,13 @@ source .venv/bin/activate        # en fish: source .venv/bin/activate.fish · en
 pip install -r requirements.txt
 ```
 
+### IPSec (Parte 3)
+
+```bash
+python -m pytest -v tests/test_ipsec.py
+python demo_ipsec.py             # paquete original, modo transporte y modo túnel lado a lado
+```
+
 ### VPN, autenticación y registro (Parte 4)
 
 ```bash
@@ -53,6 +60,23 @@ Los eventos se guardan en `logs/eventos.jsonl`.
 
 ## IPSec
 
+> Parte 3 · Adan Oswaldo Fraire Lopez · Código en `ipsec/ipsec.py`
+
+IPSec se **simula** en Python con la librería `cryptography`. No modifica paquetes reales del sistema operativo, pero reproduce los elementos de ESP:
+
+- **Asociación de seguridad (SA)**: `IPSecSA` guarda el SPI, la clave y el algoritmo (AES-GCM, que cifra y autentica a la vez).
+- **Modo transporte** (`modo_transporte`): cifra solo el contenido y deja visible el encabezado IP original. Se usa entre dos equipos que se comunican directamente.
+- **Modo túnel** (`modo_tunel`): cifra el paquete IP completo, incluidas las direcciones internas, y le pone un encabezado IP nuevo con las direcciones de los gateways. Es el que usa la VPN sitio a sitio.
+- **Anti-replay**: cada paquete lleva un número de secuencia y el receptor mantiene una ventana deslizante de 64. Rechaza los números repetidos y los demasiado viejos.
+- **Integridad**: el SPI y el número de secuencia van como datos autenticados de GCM; cualquier cambio en el paquete hace que se rechace.
+
+`IPSecSA.recibir()` procesa los paquetes en el orden de RFC 4303: revisa la ventana, verifica la integridad y solo entonces marca el número de secuencia. Así un paquete falso no puede "gastar" el número de uno legítimo.
+
+| | Modo transporte | Modo túnel |
+|---|---|---|
+| Qué se cifra | Solo el contenido | El paquete IP completo |
+| Encabezado IP visible | El original (IP de los equipos) | Uno nuevo (IP de los gateways) |
+| Uso típico | Equipo ↔ equipo | Gateway ↔ gateway (VPN sitio a sitio) |
 
 ## VPN
 

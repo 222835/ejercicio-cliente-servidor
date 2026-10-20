@@ -1,15 +1,3 @@
-"""Registro de eventos de seguridad (requerimiento 8).
-
-Escribe un evento por línea en formato JSON (JSON Lines) en logs/eventos.jsonl.
-Lo pueden usar todas las partes del proyecto:
-
-    from comun.registro import registrar
-    registrar("acceso_denegado", componente="vpn", usuario="ana", recurso="base_datos")
-
-Cada línea queda así:
-    {"timestamp": "2026-10-19T22:30:00+00:00", "nivel": "WARNING", "componente": "vpn",
-     "evento": "acceso_denegado", "usuario": "ana", "recurso": "base_datos"}
-"""
 from __future__ import annotations
 
 import json
@@ -21,10 +9,8 @@ from datetime import datetime, timezone
 _NOMBRE_LOGGER = "seguridad"
 RUTA_DEFECTO = os.environ.get("RUTA_LOG", os.path.join("logs", "eventos.jsonl"))
 
-# Copia en memoria de los últimos eventos (útil para la demo y las pruebas).
 historial: deque[dict] = deque(maxlen=2000)
 
-# Eventos que se registran como advertencia por ser relevantes para seguridad.
 EVENTOS_ADVERTENCIA = {
     "autenticacion_fallida",
     "cuenta_bloqueada",
@@ -44,7 +30,6 @@ class FormatoJSON(logging.Formatter):
 
 
 def configurar(ruta: str | None = None) -> logging.Logger:
-    """(Re)configura el archivo de log. Se llama sola la primera vez."""
     logger = logging.getLogger(_NOMBRE_LOGGER)
     for h in list(logger.handlers):
         logger.removeHandler(h)
@@ -69,7 +54,6 @@ def _logger() -> logging.Logger:
 
 
 def registrar(evento: str, componente: str = "general", **datos) -> dict:
-    """Registra un evento y lo devuelve como diccionario."""
     nivel = logging.WARNING if evento in EVENTOS_ADVERTENCIA else logging.INFO
     registro = {
         "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -84,7 +68,6 @@ def registrar(evento: str, componente: str = "general", **datos) -> dict:
 
 
 def eventos(tipo: str | None = None, componente: str | None = None) -> list[dict]:
-    """Filtra el historial en memoria."""
     return [
         e for e in historial
         if (tipo is None or e["evento"] == tipo)

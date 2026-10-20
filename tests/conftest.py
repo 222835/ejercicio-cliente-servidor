@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 from comun import registro  # noqa: E402
 from vpn.auth import AlmacenUsuarios  # noqa: E402
 
-ITERACIONES_PRUEBA = 1_000  # bajo solo para que las pruebas sean rápidas
+ITERACIONES_PRUEBA = 1_000
 
 
 @pytest.fixture(autouse=True)

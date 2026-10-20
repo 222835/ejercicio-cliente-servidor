@@ -1,4 +1,3 @@
-"""Pruebas de la VPN sitio a sitio (req. 7 y 9)."""
 import copy
 
 import pytest
@@ -79,7 +78,7 @@ def test_paquete_alterado_no_consume_secuencia(gateways):
     falso["encrypted_packet"] = "00" + falso["encrypted_packet"][2:]
     with pytest.raises(ErrorIPSec):
         sucursal.recibir(falso)
-    assert sucursal.recibir(p)["datos"] == "hola"   # el original sigue siendo válido
+    assert sucursal.recibir(p)["datos"] == "hola"
 
 
 def test_paquetes_fuera_de_orden_dentro_de_ventana(gateways):
@@ -112,7 +111,6 @@ def test_usa_el_modo_tunel_de_la_parte3(gateways):
     tunel, _ = next(iter(matriz._salida.values()))
     assert isinstance(tunel.sa, IPSecSA)
     p = matriz.enviar("10.1.0.5", "10.2.0.7", "x")
-    # Formato que produce IPSecSimulator.modo_tunel()
     assert set(p) == {"new_ip_header", "ipsec_header", "encrypted_packet"}
 
 
@@ -121,22 +119,20 @@ def test_paquete_viejo_fuera_de_ventana(gateways):
     primero = matriz.enviar("10.1.0.5", "10.2.0.7", "viejo")
     for i in range(70):
         ultimo = matriz.enviar("10.1.0.5", "10.2.0.7", str(i))
-    sucursal.recibir(ultimo)                      # seq 71
+    sucursal.recibir(ultimo)
     with pytest.raises(ErrorIPSec, match="Replay"):
-        sucursal.recibir(primero)                 # seq 1: fuera de la ventana de 64
+        sucursal.recibir(primero)
 
 
 def test_numero_de_secuencia_alterado(gateways):
     matriz, sucursal = gateways
     p = matriz.enviar("10.1.0.5", "10.2.0.7", "x")
-    p["ipsec_header"]["seq"] = 999                # el seq va en el AAD de GCM
+    p["ipsec_header"]["seq"] = 999
     with pytest.raises(ErrorIPSec, match="alterado"):
         sucursal.recibir(p)
 
 
 def test_paquete_falso_no_bloquea_al_legitimo(gateways):
-    """Un atacante manda basura con el seq del siguiente paquete legítimo.
-    Como la ventana solo se actualiza tras validar GCM, el legítimo pasa."""
     matriz, sucursal = gateways
     legitimo = matriz.enviar("10.1.0.5", "10.2.0.7", "pago autorizado")
     falso = copy.deepcopy(legitimo)

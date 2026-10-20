@@ -86,7 +86,7 @@ def test_anti_replay_rechaza_duplicados_y_viejos(ipsec_setup):
     # El atacante intenta enviar un paquete muy viejo (secuencia 10), fuera de la ventana de 64
     assert sa.check_replay(10) == False
 
-# --- 4 RECEPCION EN EL ORDEN CORRECTO (replay -> GCM -> marcar) ---
+# --- 4 PRUEBA DE RECEPCION ---
 def test_recibir_paquete_legitimo_y_rechazar_replay(ipsec_setup):
     sa, simulador = ipsec_setup
     paquete = simulador.modo_transporte({"src": "192.168.1.10", "dst": "192.168.1.20"}, "hola")
@@ -103,11 +103,9 @@ def test_paquete_falso_no_consume_el_numero_de_secuencia(ipsec_setup):
     paquete = simulador.modo_transporte({"src": "192.168.1.10", "dst": "192.168.1.20"}, "pago")
     seq = paquete["ipsec_header"]["seq"]
 
-    # El atacante adelanta un paquete falso con el mismo numero de secuencia
     with pytest.raises(ValueError, match="alterado"):
         sa.recibir(seq, b"\x00" * 40)
 
-    # El paquete legitimo sigue siendo aceptado
     assert sa.recibir(seq, bytes.fromhex(paquete["encrypted_payload"])) == b"pago"
 
 

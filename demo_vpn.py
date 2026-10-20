@@ -1,10 +1,3 @@
-"""Demo visual de la Parte 4: VPN de acceso remoto, VPN sitio a sitio y AAA.
-
-Uso:
-    python demo_vpn.py              # todo
-    python demo_vpn.py --remota     # solo acceso remoto
-    python demo_vpn.py --sitio      # solo sitio a sitio
-"""
 import argparse
 
 from rich.console import Console
@@ -39,7 +32,7 @@ def demo_acceso_remoto():
     for nombre, clave in [("beto", "Empleado#2026"), ("beto", "123456"), ("mallory", "admin")]:
         try:
             s = vpn.conectar(nombre, clave, ip_origen="189.203.40.12")
-            sesiones[nombre] = s   # la sesión sigue abierta y se reutiliza abajo
+            sesiones[nombre] = s
             consola.print(f"  {OK} {nombre}: conectado, IP virtual [cyan]{s.ip_virtual}[/]")
         except ErrorAutenticacion as e:
             consola.print(f"  {NO} {nombre}: {e}")

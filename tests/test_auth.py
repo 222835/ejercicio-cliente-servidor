@@ -1,4 +1,3 @@
-"""Pruebas de autenticación, autorización y registro (req. 8)."""
 import json
 
 import pytest
@@ -38,7 +37,7 @@ def test_login_usuario_inexistente_mismo_mensaje(almacen):
         autenticar(almacen, "nadie", "x")
     with pytest.raises(ErrorAutenticacion) as e2:
         autenticar(almacen, "ana", "x")
-    assert str(e1.value) == str(e2.value)  # no revela qué usuarios existen
+    assert str(e1.value) == str(e2.value)
 
 
 def test_bloqueo_tras_intentos_fallidos(almacen):
@@ -46,7 +45,7 @@ def test_bloqueo_tras_intentos_fallidos(almacen):
         with pytest.raises(ErrorAutenticacion):
             autenticar(almacen, "beto", "mala")
     with pytest.raises(ErrorAutenticacion, match="bloqueada"):
-        autenticar(almacen, "beto", "Empleado#2026")  # ni con la correcta
+        autenticar(almacen, "beto", "Empleado#2026")
     assert registro.eventos("cuenta_bloqueada")
 
 
@@ -61,8 +60,8 @@ def test_autorizacion_por_rol(almacen, rol_usuario, recurso, esperado):
 
 
 def test_autenticado_no_implica_autorizado(almacen):
-    u = autenticar(almacen, "carla", "Invitada#2026")   # autenticación OK
-    assert autorizar(u, "base_datos") is False            # autorización NO
+    u = autenticar(almacen, "carla", "Invitada#2026")
+    assert autorizar(u, "base_datos") is False
 
 
 def test_log_es_json_por_linea(almacen, log_temporal):

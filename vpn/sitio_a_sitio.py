@@ -1,16 +1,3 @@
-"""VPN sitio a sitio simulada (requerimiento 7).
-
-Escenario: DOS redes completas (oficina matriz 10.1.0.0/24 y sucursal
-10.2.0.0/24) unidas por sus gateways a través de Internet.
-
-Diferencias con la VPN de acceso remoto:
-  - No hay usuario final ni contraseña: se autentican los GATEWAYS entre sí
-    con una clave precompartida (PSK) mediante desafío-respuesta HMAC.
-  - El túnel es permanente y transporta tráfico de cualquier equipo de una red
-    hacia la otra (los equipos internos no saben que existe la VPN).
-  - Siempre usa IPSec en MODO TÚNEL: en Internet solo se ven las IP públicas
-    de los gateways, las IP internas viajan cifradas.
-"""
 from __future__ import annotations
 
 import hashlib
@@ -27,7 +14,7 @@ from vpn.tunel_ipsec import ErrorIPSec, crear_tunel_entrada, crear_tunel_salida
 
 
 class ErrorRuta(Exception):
-    """El destino no pertenece a ninguna red remota con túnel."""
+    pass
 
 
 class Gateway:
@@ -36,13 +23,12 @@ class Gateway:
         self.red_local = ipaddress.ip_network(red_local)
         self.ip_publica = ip_publica
         self._psk = psk
-        self._salida: dict = {}    # red_remota -> (tunel, gateway_par)
-        self._entrada: dict = {}   # spi -> (tunel, gateway_par)
+        self._salida: dict = {}
+        self._entrada: dict = {}
 
     def __repr__(self) -> str:
         return f"Gateway({self.nombre}, {self.red_local}, {self.ip_publica})"
 
-    # ---------- autenticación entre gateways ----------
     def _prueba(self, nonce_propio: bytes, nonce_par: bytes, identidad: str) -> bytes:
         return hmac.new(self._psk, identidad.encode() + nonce_propio + nonce_par,
                         hashlib.sha256).digest()
@@ -54,14 +40,6 @@ class Gateway:
         return hmac.compare_digest(esperada, prueba_recibida)
 
     def establecer_tunel(self, par: "Gateway") -> None:
-        """Fase de negociación (simplificación de IKE).
-
-        1. Cada gateway genera un nonce aleatorio.
-        2. Cada uno demuestra conocer la PSK enviando HMAC(PSK, identidad|nonces).
-           La PSK nunca viaja por la red.
-        3. Si ambos se verifican, se derivan con HKDF dos claves (una por
-           sentido) y se crean las SA con SPI aleatorios.
-        """
         registrar("negociacion_tunel", "vpn_s2s", gateway=self.nombre, par=par.nombre,
                   ip_local=self.ip_publica, ip_par=par.ip_publica)
         n_a, n_b = os.urandom(16), os.urandom(16)
@@ -79,10 +57,8 @@ class Gateway:
         clave_ida, clave_vuelta = material[:32], material[32:]
         spi_ida, spi_vuelta = (int.from_bytes(os.urandom(4), "big") for _ in range(2))
 
-        # self -> par
         self._salida[par.red_local] = (crear_tunel_salida(spi_ida, clave_ida), par)
         par._entrada[spi_ida] = (crear_tunel_entrada(spi_ida, clave_ida), self)
-        # par -> self
         par._salida[self.red_local] = (crear_tunel_salida(spi_vuelta, clave_vuelta), self)
         self._entrada[spi_vuelta] = (crear_tunel_entrada(spi_vuelta, clave_vuelta), par)
 
@@ -90,9 +66,7 @@ class Gateway:
                   red_local=str(self.red_local), red_remota=str(par.red_local),
                   spi_salida=hex(spi_ida), spi_entrada=hex(spi_vuelta))
 
-    # ---------- tráfico ----------
     def enviar(self, ip_origen: str, ip_destino: str, datos: str) -> dict:
-        """Un equipo de la red local manda un paquete a un equipo de la red remota."""
         if ipaddress.ip_address(ip_origen) not in self.red_local:
             registrar("ruta_rechazada", "vpn_s2s", gateway=self.nombre,
                       ip_origen=ip_origen, motivo="origen_fuera_de_red_local")
@@ -113,7 +87,6 @@ class Gateway:
         raise ErrorRuta(f"No hay túnel hacia {ip_destino}")
 
     def recibir(self, paquete_esp: dict) -> dict:
-        """El gateway recibe un paquete ESP desde Internet y lo entrega a su red local."""
         spi = paquete_esp["ipsec_header"]["spi"]
         entrada = self._entrada.get(spi)
         if entrada is None:
@@ -147,7 +120,6 @@ class Gateway:
 
 
 def vista_desde_internet(paquete_esp: dict) -> dict:
-    """Lo que vería alguien capturando tráfico (p. ej. con Wireshark) entre los dos gateways."""
     return {
         "src": paquete_esp["new_ip_header"]["src"],
         "dst": paquete_esp["new_ip_header"]["dst"],

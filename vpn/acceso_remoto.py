@@ -1,13 +1,3 @@
-"""VPN de acceso remoto simulada (requerimiento 6).
-
-Escenario: UNA persona (laptop en su casa) se conecta a la red interna de la
-organización. El servidor VPN:
-  1. Autentica al usuario (autenticar()).
-  2. Le asigna una IP virtual del pool 10.8.0.0/24.
-  3. Crea una sesión con vencimiento.
-  4. En cada petición a un recurso interno revisa la sesión y aplica
-     autorizar() según el rol: conectarse NO da acceso ilimitado.
-"""
 from __future__ import annotations
 
 import ipaddress
@@ -21,7 +11,6 @@ from vpn.auth import (AlmacenUsuarios, ErrorAutenticacion, ErrorAutorizacion,
                       Usuario, autenticar, autorizar, exigir_autorizacion,
                       PERMISOS_POR_ROL)
 
-# Recursos de la red interna 10.0.0.0/24 detrás del servidor VPN.
 RECURSOS_INTERNOS: dict[str, dict[str, str]] = {
     "archivos":    {"ip": "10.0.0.10", "descripcion": "Servidor de archivos compartidos"},
     "wiki":        {"ip": "10.0.0.20", "descripcion": "Wiki interna"},
@@ -31,11 +20,11 @@ RECURSOS_INTERNOS: dict[str, dict[str, str]] = {
 
 
 class ErrorSesion(Exception):
-    """Sesión inexistente, cerrada o vencida."""
+    pass
 
 
 class ErrorVPN(Exception):
-    """Error general del servidor VPN (por ejemplo, sin IPs disponibles)."""
+    pass
 
 
 @dataclass
@@ -55,13 +44,12 @@ class ServidorVPNAccesoRemoto:
         self.almacen = almacen
         self.red_pool = ipaddress.ip_network(red_pool)
         hosts = list(self.red_pool.hosts())
-        self.ip_servidor = str(hosts[0])                 # 10.8.0.1
-        self._ips_libres = [str(ip) for ip in hosts[1:]]  # 10.8.0.2 ...
+        self.ip_servidor = str(hosts[0])
+        self._ips_libres = [str(ip) for ip in hosts[1:]]
         self.duracion = duracion_sesion
         self.reloj = reloj
         self.sesiones: dict[str, SesionVPN] = {}
 
-    # ---------- conexión ----------
     def conectar(self, nombre: str, contrasena: str, ip_origen: str = "203.0.113.50") -> SesionVPN:
         registrar("intento_conexion_vpn", "vpn_remota", usuario=nombre, ip_origen=ip_origen)
         try:
@@ -85,7 +73,6 @@ class ServidorVPNAccesoRemoto:
         sesion = self.sesiones.pop(id_sesion, None)
         if sesion:
             self._ips_libres.append(sesion.ip_virtual)
-            # Se reutiliza siempre la IP libre más baja (como un servidor DHCP).
             self._ips_libres.sort(key=ipaddress.ip_address)
             registrar("desconexion_vpn", "vpn_remota", usuario=sesion.usuario.nombre,
                       ip_virtual=sesion.ip_virtual)
@@ -102,9 +89,7 @@ class ServidorVPNAccesoRemoto:
             raise ErrorSesion("La sesión venció; vuelve a autenticarte")
         return sesion
 
-    # ---------- uso de recursos internos ----------
     def acceder(self, id_sesion: str, recurso: str) -> str:
-        """Pide un recurso interno a través del túnel. Aplica autorización por rol."""
         sesion = self._validar_sesion(id_sesion)
         if recurso not in RECURSOS_INTERNOS:
             registrar("acceso_denegado", "vpn_remota", usuario=sesion.usuario.nombre,
@@ -122,9 +107,7 @@ class ServidorVPNAccesoRemoto:
         sesion = self._validar_sesion(id_sesion)
         return sorted(PERMISOS_POR_ROL[sesion.usuario.rol])
 
-    # ---------- operaciones administrativas ----------
     def operacion_admin(self, id_sesion: str, operacion: str, **params):
-        """Operaciones que solo puede hacer quien tiene permiso sobre 'panel_admin'."""
         sesion = self._validar_sesion(id_sesion)
         u = sesion.usuario
         if not autorizar(u, "panel_admin", operacion=operacion):

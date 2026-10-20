@@ -1,4 +1,3 @@
-"""Pruebas de la VPN de acceso remoto (req. 6 y 9)."""
 import ipaddress
 
 import pytest

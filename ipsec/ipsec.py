@@ -3,7 +3,7 @@ import json
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.exceptions import InvalidTag
 
-from comun.registro import registrar  # registro común del proyecto (JSON por línea)
+from comun.registro import registrar
 
 class IPSecSA:
     """
@@ -23,9 +23,6 @@ class IPSecSA:
     def check_replay(self, seq: int, marcar: bool = True) -> bool:
         """
         Verifica si un numero de secuencia es valido según la ventana deslizante.
-
-        Con marcar=False solo consulta la ventana sin registrar el numero;
-        se usa para revisar ANTES de validar la integridad del paquete.
         """
         if seq <= 0:
             registrar("replay_detectado", "ipsec", spi=self.spi,
@@ -49,7 +46,6 @@ class IPSecSA:
         return True
 
     def _marcar_secuencia(self, seq: int) -> None:
-        """Registra el numero como recibido y desliza la ventana."""
         self.seen_seqs.add(seq)
         if seq > self.highest_seq:
             self.highest_seq = seq
@@ -57,18 +53,11 @@ class IPSecSA:
 
     def recibir(self, seq: int, encrypted_data: bytes) -> bytes:
         """
-        Procesa un paquete recibido en el orden correcto (como RFC 4303):
-          1. Revisa la ventana anti-replay SIN marcar el numero.
-          2. Verifica la integridad y descifra con AES-GCM.
-          3. Solo si el paquete es autentico, marca el numero como recibido.
-
-        Si se marcara antes de verificar, un atacante podria mandar un paquete
-        falso con el numero del siguiente paquete legitimo y hacer que este se
-        rechazara como duplicado.
+        Verifica replay e integridad antes de marcar la secuencia como recibida.
         """
         if not self.check_replay(seq, marcar=False):
             raise ValueError("Replay detectado")
-        datos = self.decrypt_payload(encrypted_data, seq)   # ValueError si fue alterado
+        datos = self.decrypt_payload(encrypted_data, seq)
         self._marcar_secuencia(seq)
         return datos
 
