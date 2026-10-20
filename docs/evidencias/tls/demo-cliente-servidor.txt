@@ -1,0 +1,35 @@
+# Comando: (varios, ver abajo)
+# Fecha:   2026-10-19 21:26:28 -0600
+# Commit:  2e505fc
+# Python:  Python 3.12.3
+
+=== Sin protección: el servicio funciona, pero nada va cifrado
+$ python -m tls.servidor --modo plano --host 127.0.0.1 --puerto 5443
+$ python -m tls.cliente --host 127.0.0.1 --puerto 5443 --modo plano
+Modo: PLANO (sin cifrado)
+Respuesta: ECO: Mensaje de prueba: usuario=ana clave=Secreta#2026
+
+=== TLS: certificado autofirmado -> el cliente rechaza
+$ python -m tls.servidor --modo tls --host 127.0.0.1 --puerto 5443 --cert pki/malos/autofirmado.crt --llave pki/malos/autofirmado.key
+$ python -m tls.cliente --host 127.0.0.1 --puerto 5443 --modo tls --hostname 222835-cliente-servidor.duckdns.org
+CONEXIÓN RECHAZADA: certificado no confiable (self-signed certificate, código 18)
+(código de salida: 2)
+
+=== TLS: certificado expirado -> el cliente rechaza
+$ python -m tls.servidor --modo tls --host 127.0.0.1 --puerto 5443 --cert /tmp/tmp.aA6glU1MMM/expirado-chain.crt --llave pki/malos/expirado.key
+$ python -m tls.cliente --host 127.0.0.1 --puerto 5443 --modo tls --hostname 222835-cliente-servidor.duckdns.org
+CONEXIÓN RECHAZADA: certificado no confiable (certificate has expired, código 10)
+(código de salida: 2)
+
+=== TLS: nombre incorrecto (otro-servidor.com) -> el cliente rechaza
+$ python -m tls.servidor --modo tls --host 127.0.0.1 --puerto 5443 --cert /tmp/tmp.aA6glU1MMM/nombre-incorrecto-chain.crt --llave pki/malos/nombre-incorrecto.key
+$ python -m tls.cliente --host 127.0.0.1 --puerto 5443 --modo tls --hostname 222835-cliente-servidor.duckdns.org
+CONEXIÓN RECHAZADA: certificado no confiable (Hostname mismatch, certificate is not valid for '222835-cliente-servidor.duckdns.org'., código 62)
+(código de salida: 2)
+
+=== TLS: firmado por otra CA (CA Falsa) -> el cliente rechaza
+$ python -m tls.servidor --modo tls --host 127.0.0.1 --puerto 5443 --cert pki/malos/otra-ca.crt --llave pki/malos/otra-ca.key
+$ python -m tls.cliente --host 127.0.0.1 --puerto 5443 --modo tls --hostname 222835-cliente-servidor.duckdns.org
+CONEXIÓN RECHAZADA: certificado no confiable (unable to get local issuer certificate, código 20)
+(código de salida: 2)
+

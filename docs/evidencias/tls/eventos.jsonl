@@ -1,0 +1,16 @@
+{"timestamp": "2026-10-20T03:26:30+00:00", "nivel": "INFO", "componente": "tls", "evento": "servidor_iniciado", "modo": "plano", "host": "127.0.0.1", "puerto": 5443}
+{"timestamp": "2026-10-20T03:26:31+00:00", "nivel": "INFO", "componente": "tls", "evento": "conexion_tcp", "cliente": "127.0.0.1"}
+{"timestamp": "2026-10-20T03:26:31+00:00", "nivel": "INFO", "componente": "tls", "evento": "mensaje_recibido", "cliente": "127.0.0.1", "bytes": 50}
+{"timestamp": "2026-10-20T03:26:31+00:00", "nivel": "INFO", "componente": "tls", "evento": "conexion_tcp", "servidor": "127.0.0.1", "host": "127.0.0.1", "protocolo": null, "cifrado": null, "resultado": "ok"}
+{"timestamp": "2026-10-20T03:26:32+00:00", "nivel": "INFO", "componente": "tls", "evento": "servidor_iniciado", "modo": "tls", "host": "127.0.0.1", "puerto": 5443}
+{"timestamp": "2026-10-20T03:26:34+00:00", "nivel": "WARNING", "componente": "tls", "evento": "handshake_fallido", "cliente": "127.0.0.1", "motivo": "TLSV1_ALERT_UNKNOWN_CA"}
+{"timestamp": "2026-10-20T03:26:34+00:00", "nivel": "WARNING", "componente": "tls", "evento": "certificado_rechazado", "servidor": "222835-cliente-servidor.duckdns.org", "host": "127.0.0.1", "motivo": "self-signed certificate", "codigo": 18}
+{"timestamp": "2026-10-20T03:26:35+00:00", "nivel": "INFO", "componente": "tls", "evento": "servidor_iniciado", "modo": "tls", "host": "127.0.0.1", "puerto": 5443}
+{"timestamp": "2026-10-20T03:26:36+00:00", "nivel": "WARNING", "componente": "tls", "evento": "handshake_fallido", "cliente": "127.0.0.1", "motivo": "SSLV3_ALERT_CERTIFICATE_EXPIRED"}
+{"timestamp": "2026-10-20T03:26:36+00:00", "nivel": "WARNING", "componente": "tls", "evento": "certificado_rechazado", "servidor": "222835-cliente-servidor.duckdns.org", "host": "127.0.0.1", "motivo": "certificate has expired", "codigo": 10}
+{"timestamp": "2026-10-20T03:26:38+00:00", "nivel": "INFO", "componente": "tls", "evento": "servidor_iniciado", "modo": "tls", "host": "127.0.0.1", "puerto": 5443}
+{"timestamp": "2026-10-20T03:26:39+00:00", "nivel": "WARNING", "componente": "tls", "evento": "handshake_fallido", "cliente": "127.0.0.1", "motivo": "SSLV3_ALERT_BAD_CERTIFICATE"}
+{"timestamp": "2026-10-20T03:26:39+00:00", "nivel": "WARNING", "componente": "tls", "evento": "certificado_rechazado", "servidor": "222835-cliente-servidor.duckdns.org", "host": "127.0.0.1", "motivo": "Hostname mismatch, certificate is not valid for '222835-cliente-servidor.duckdns.org'.", "codigo": 62}
+{"timestamp": "2026-10-20T03:26:40+00:00", "nivel": "INFO", "componente": "tls", "evento": "servidor_iniciado", "modo": "tls", "host": "127.0.0.1", "puerto": 5443}
+{"timestamp": "2026-10-20T03:26:41+00:00", "nivel": "WARNING", "componente": "tls", "evento": "handshake_fallido", "cliente": "127.0.0.1", "motivo": "TLSV1_ALERT_UNKNOWN_CA"}
+{"timestamp": "2026-10-20T03:26:41+00:00", "nivel": "WARNING", "componente": "tls", "evento": "certificado_rechazado", "servidor": "222835-cliente-servidor.duckdns.org", "host": "127.0.0.1", "motivo": "unable to get local issuer certificate", "codigo": 20}

@@ -1,0 +1,26 @@
+# Comando: python -m pytest -v tests/test_tls.py
+# Fecha:   2026-10-19 21:26:25 -0600
+# Commit:  2e505fc
+# Python:  Python 3.12.3
+
+============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\MW2412~1\AppData\Local\Temp\venv-tls\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\MW24120369\code\client-server\ejercicio-cliente-servidor
+collecting ... collected 13 items
+
+tests/test_tls.py::test_modo_sin_proteccion_devuelve_el_eco PASSED       [  7%]
+tests/test_tls.py::test_tls_exitoso_valida_cadena_y_hostname_aunque_se_conecte_por_ip PASSED [ 15%]
+tests/test_tls.py::test_tls_exitoso_con_el_certificado_real_de_la_pki SKIPPED [ 23%]
+tests/test_tls.py::test_cliente_rechaza_los_certificados_invalidos_de_la_parte_2[autofirmado] PASSED [ 30%]
+tests/test_tls.py::test_cliente_rechaza_los_certificados_invalidos_de_la_parte_2[expirado] PASSED [ 38%]
+tests/test_tls.py::test_cliente_rechaza_los_certificados_invalidos_de_la_parte_2[nombre-incorrecto] PASSED [ 46%]
+tests/test_tls.py::test_cliente_rechaza_los_certificados_invalidos_de_la_parte_2[firmado-por-otra-CA] PASSED [ 53%]
+tests/test_tls.py::test_cliente_rechaza_un_servidor_valido_si_su_ca_no_es_de_confianza PASSED [ 61%]
+tests/test_tls.py::test_cliente_rechaza_un_servidor_que_no_envia_la_intermedia PASSED [ 69%]
+tests/test_tls.py::test_cliente_rechaza_si_el_hostname_esperado_no_coincide PASSED [ 76%]
+tests/test_tls.py::test_el_rechazo_de_un_certificado_queda_en_el_registro PASSED [ 84%]
+tests/test_tls.py::test_cliente_tls_contra_servidor_sin_proteccion_falla PASSED [ 92%]
+tests/test_tls.py::test_cliente_sin_proteccion_contra_servidor_tls_no_recibe_eco PASSED [100%]
+
+======================== 12 passed, 1 skipped in 0.75s ========================

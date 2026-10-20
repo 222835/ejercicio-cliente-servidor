@@ -32,6 +32,16 @@ source .venv/bin/activate        # en fish: source .venv/bin/activate.fish · en
 pip install -r requirements.txt
 ```
 
+### Cliente-servidor y TLS (Parte 1)
+
+```bash
+python -m pytest -v tests/test_tls.py
+python -m tls.servidor --modo tls            # o --modo plano; en el equipo del servidor
+python -m tls.cliente --modo tls --host <IP_DEL_SERVIDOR> --hostname 222835-cliente-servidor.duckdns.org
+```
+
+El servidor necesita `pki/servidor/server.key`, que no está en el repositorio. Pasos para las dos computadoras y para Wireshark en [`README-TLS.md`](README-TLS.md).
+
 ### IPSec (Parte 3)
 
 ```bash
@@ -51,6 +61,24 @@ Los eventos se guardan en `logs/eventos.jsonl`.
 
 ## TLS
 
+> Parte 1 · Santiago Medivil Alvarez · Código en `tls/` · Detalle completo en [`README-TLS.md`](README-TLS.md)
+
+Un servidor y un cliente TCP de eco que funcionan en dos modos, para comparar qué protege TLS:
+
+- **Modo `plano`**: TCP sin protección. El mensaje viaja legible y cualquiera puede hacerse pasar por el servidor.
+- **Modo `tls`**: el servidor presenta su certificado y la cadena de la PKI (servidor → intermedia → raíz) y el canal queda cifrado y autenticado (TLS 1.2 o superior).
+
+El cliente **no confía en nada por defecto**: carga únicamente `pki/root/ca.crt` (no las CA del sistema), valida la cadena, la vigencia y el **hostname**, y si algo falla no envía ningún dato (`ErrorCertificado`, código de salida 2). El hostname a validar (`--hostname`) es independiente de la dirección a la que se conecta (`--host`), así que en la red local se puede conectar por IP y seguir validando contra `222835-cliente-servidor.duckdns.org`.
+
+| Certificado que presenta el servidor | Resultado en el cliente |
+|---|---|
+| Emitido por la PKI, con el nombre correcto | ✔ conexión TLS |
+| Autofirmado | ✘ rechazado (`self-signed certificate`) |
+| Expirado | ✘ rechazado (`certificate has expired`) |
+| De otro nombre (`otro-servidor.com`) | ✘ rechazado (`Hostname mismatch`) |
+| Firmado por otra CA ("CA Falsa") | ✘ rechazado (`unable to get local issuer certificate`) |
+
+Los rechazos se registran como `WARNING` (`certificado_rechazado`, `handshake_fallido`) en el mismo log que las demás partes. Las pruebas usan los certificados inválidos de la Parte 2 (`pki/malos/`) y están en `tests/test_tls.py`.
 
 ## PKI
 
@@ -126,6 +154,16 @@ Se registran conexiones, autenticaciones exitosas y fallidas, accesos permitidos
 
 
 ## Limitaciones de seguridad
+
+### Cliente-servidor y TLS (Parte 1)
+
+- Solo se autentica al servidor (no hay TLS mutuo) y no se consulta revocación (CRL/OCSP).
+- La llave privada del servidor es un archivo sin contraseña; no se versiona y debe copiarse al equipo servidor por un medio seguro.
+- El modo `plano` existe solo para comparar; el cliente no cae a texto plano por su cuenta, pero se le puede pedir.
+- El *handshake* deja visibles metadatos (SNI, IP, puertos, tamaños y tiempos) aunque el contenido esté cifrado.
+- El servidor usa una hebra por conexión sin límite; los tiempos de espera acotan cada una pero no evitan el agotamiento por muchas conexiones.
+
+Más detalle en [`README-TLS.md`](README-TLS.md).
 
 ### VPN, autenticación y registro (Parte 4)
 
