@@ -13,7 +13,7 @@ vpn/
   sitio_a_sitio.py     # VPN sitio a sitio (red ↔ red, gateways con PSK)
   tunel_ipsec.py       # Puente hacia el IPSec de la Parte 3 (desencapsulado del lado receptor)
 ipsec/                 # Parte 3 (Adán): IPSecSA, modo transporte y modo túnel
-tests/                 # 46 pruebas con pytest (incluye las 4 de IPSec)
+tests/                 # 49 pruebas con pytest (incluye las 7 de IPSec)
 demo_vpn.py            # Demo visual de la Parte 4 con rich
 demo_ipsec.py          # Demo visual de la Parte 3 (transporte vs. túnel)
 ```
@@ -106,18 +106,21 @@ registrar("conexion_tls", componente="tls", cliente="192.168.1.20", resultado="o
 
 ## Integración con la Parte 3 (IPSec de Adán)
 
-La VPN sitio a sitio **no tiene criptografía propia**: cada sentido del túnel es una `IPSecSA` de `ipsec/ipsec.py`, y los paquetes se arman con `IPSecSimulator.modo_tunel()`. `vpn/tunel_ipsec.py` solo agrega el desencapsulado del lado receptor, en este orden:
+La VPN sitio a sitio **no tiene criptografía propia**: cada sentido del túnel es una `IPSecSA` de `ipsec/ipsec.py`, los paquetes se arman con `IPSecSimulator.modo_tunel()` y se reciben con `IPSecSA.recibir()`. `vpn/tunel_ipsec.py` solo traduce entre los dos módulos.
 
-1. Revisar que el SPI corresponda a la SA.
-2. Verificar y descifrar con AES-GCM (`decrypt_payload`). El SPI y el número de secuencia van como datos autenticados, así que alterarlos también se detecta.
-3. **Solo si el paquete es auténtico**, registrar el número de secuencia con `check_replay`.
+`IPSecSA.recibir()` procesa cada paquete en este orden (como en RFC 4303):
 
-El orden del paso 3 importa: si la ventana anti-replay se actualizara antes de validar la integridad, un atacante podría mandar un paquete falso con el número de secuencia del siguiente paquete legítimo y hacer que el legítimo se rechazara como duplicado. Hay una prueba para ese caso (`test_paquete_falso_no_bloquea_al_legitimo`).
+1. Revisa la ventana anti-replay **sin marcar** el número de secuencia.
+2. Verifica la integridad y descifra con AES-GCM. El SPI y el número de secuencia van como datos autenticados, así que alterarlos también se detecta.
+3. **Solo si el paquete es auténtico**, marca el número como recibido.
+
+El orden importa: si la ventana se actualizara antes de validar la integridad, un atacante podría mandar un paquete falso con el número de secuencia del siguiente paquete legítimo y hacer que el legítimo se rechazara como duplicado. Hay pruebas para ese caso en `test_ipsec.py` y `test_sitio_a_sitio.py`.
 
 Ajustes hechos al módulo de la Parte 3 para integrarlo:
-- Se agregó `ipsec/__init__.py`: sin él, `from ipsec import IPSecSA` fallaba al correr las pruebas desde la raíz del repo.
-- Los eventos de IPSec ahora usan el registro común (`comun/registro.py`) en lugar de `logging.basicConfig`.
-- La demo se movió a la raíz (`demo_ipsec.py`) para poder ejecutarla con `python demo_ipsec.py`.
+- `ipsec/__init__.py`: sin él, `from ipsec import IPSecSA` fallaba al correr las pruebas desde la raíz del repo.
+- Los eventos de IPSec usan el registro común (`comun/registro.py`) en lugar de `logging.basicConfig`.
+- Nuevo método `IPSecSA.recibir()` con el orden de verificación descrito arriba. `check_replay()` acepta `marcar=False` para solo consultar la ventana, y rechaza el número de secuencia 0. Las funciones y pruebas originales siguen igual.
+- La demo se movió a la raíz (`demo_ipsec.py`) para ejecutarla con `python demo_ipsec.py`.
 
 ## Pruebas (requerimiento 9)
 
@@ -126,7 +129,7 @@ Ajustes hechos al módulo de la Parte 3 para integrarlo:
 | `test_auth.py` | Login válido e inválido, hash con sal, mismo error para usuario inexistente, bloqueo tras 3 intentos, permisos por rol, autenticado ≠ autorizado, log JSON sin contraseñas |
 | `test_acceso_remoto.py` | Conexión VPN con IP virtual (se reutiliza la más baja libre), conexión rechazada, acceso permitido y denegado después de conectar, operaciones admin permitidas y rechazadas, sesión falsa, cerrada y vencida |
 | `test_sitio_a_sitio.py` | Tráfico entre sitios en ambos sentidos, IP internas ocultas en Internet, gateway con PSK incorrecta rechazado, uso del modo túnel de la Parte 3, replay detectado (duplicado y fuera de la ventana), alteración del contenido o del número de secuencia detectada por GCM, paquete falso que no bloquea al legítimo, paquetes fuera de orden dentro de la ventana, rutas inválidas, SPI desconocido |
-| `test_ipsec.py` (Parte 3) | Modo transporte y túnel, alteración detectada por GCM, anti-replay |
+| `test_ipsec.py` (Parte 3) | Modo transporte y túnel, alteración detectada por GCM, anti-replay, recepción en el orden correcto (un paquete falso no consume el número de secuencia del legítimo) |
 
 ## Limitaciones de seguridad
 

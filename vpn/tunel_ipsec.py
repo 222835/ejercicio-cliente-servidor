@@ -49,11 +49,12 @@ class TunelIPSec:
         if spi != self.sa.spi:
             raise ErrorIPSec("SPI desconocido")
         try:
-            datos = self.sa.decrypt_payload(bytes.fromhex(paquete_esp["encrypted_packet"]), seq)
-        except ValueError:
+            # IPSecSA.recibir() revisa replay, verifica GCM y solo entonces marca el seq.
+            datos = self.sa.recibir(seq, bytes.fromhex(paquete_esp["encrypted_packet"]))
+        except ValueError as e:
+            if "Replay" in str(e):
+                raise ErrorIPSec(f"Replay detectado: seq={seq} ya recibido o fuera de la ventana") from None
             raise ErrorIPSec("Integridad fallida: el paquete fue alterado") from None
-        if not self.sa.check_replay(seq):
-            raise ErrorIPSec(f"Replay detectado: seq={seq} ya recibido o fuera de la ventana")
         return json.loads(datos)
 
 
