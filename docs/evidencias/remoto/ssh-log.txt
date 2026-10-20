@@ -1,0 +1,30 @@
+2026-10-19T18:54:54.668507-05:00 User7951-PC sshd-session[4720]: Accepted publickey for user from 100.81.24.80 port 62529 ssh2: ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs
+2026-10-19T18:54:54.671856-05:00 User7951-PC sshd-session[4720]: pam_unix(sshd:session): session opened for user user(uid=1000) by user(uid=0)
+2026-10-19T18:54:55.368354-05:00 User7951-PC sshd-session[4720]: User child is on pid 4757
+2026-10-19T18:54:55.407486-05:00 User7951-PC sshd-session[4757]: Starting session: shell on pts/5 for user from 100.81.24.80 port 62529 id 0
+2026-10-19T18:55:19.576078-05:00 User7951-PC sshd-session[4720]: syslogin_perform_logout: logout() returned an error
+2026-10-19T18:55:19.596574-05:00 User7951-PC sshd-session[4757]: Received disconnect from 100.81.24.80 port 62529:11: disconnected by user
+2026-10-19T18:55:19.597010-05:00 User7951-PC sshd-session[4757]: Disconnected from user user 100.81.24.80 port 62529
+2026-10-19T18:55:19.597330-05:00 User7951-PC sshd-session[4720]: pam_unix(sshd:session): session closed for user user
+2026-10-19T18:56:02.677351-05:00 User7951-PC sshd-session[4794]: Connection from 100.81.24.80 port 60503 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T18:56:02.850384-05:00 User7951-PC sshd-session[4794]: Accepted key ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs found at /home/user/.ssh/authorized_keys:1
+2026-10-19T18:56:02.855322-05:00 User7951-PC sshd-session[4794]: Postponed publickey for user from 100.81.24.80 port 60503 ssh2 [preauth]
+2026-10-19T18:56:02.873029-05:00 User7951-PC sshd-session[4794]: Accepted key ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs found at /home/user/.ssh/authorized_keys:1
+2026-10-19T18:56:02.882466-05:00 User7951-PC sshd-session[4794]: Accepted publickey for user from 100.81.24.80 port 60503 ssh2: ED25519 SHA256:FCBH/icKovTHulhnZq2fXRXXsyFiejrAHef0WhBoMLs
+2026-10-19T18:56:02.885322-05:00 User7951-PC sshd-session[4794]: pam_unix(sshd:session): session opened for user user(uid=1000) by user(uid=0)
+2026-10-19T18:56:03.252984-05:00 User7951-PC sshd-session[4794]: User child is on pid 4831
+2026-10-19T18:56:03.280624-05:00 User7951-PC sshd-session[4831]: Starting session: shell on pts/5 for user from 100.81.24.80 port 60503 id 0
+2026-10-19T18:56:05.805334-05:00 User7951-PC sshd-session[4794]: syslogin_perform_logout: logout() returned an error
+2026-10-19T18:56:05.824114-05:00 User7951-PC sshd-session[4831]: Received disconnect from 100.81.24.80 port 60503:11: disconnected by user
+2026-10-19T18:56:05.824673-05:00 User7951-PC sshd-session[4831]: Disconnected from user user 100.81.24.80 port 60503
+2026-10-19T18:56:05.825394-05:00 User7951-PC sshd-session[4794]: pam_unix(sshd:session): session closed for user user
+2026-10-19T18:56:16.580217-05:00 User7951-PC sshd-session[4862]: Connection from 100.81.24.80 port 57816 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T18:56:16.778571-05:00 User7951-PC sshd-session[4862]: User invitado from 100.81.24.80 not allowed because none of user's groups are listed in AllowGroups
+2026-10-19T18:56:16.825834-05:00 User7951-PC sshd-session[4862]: Connection reset by invalid user invitado 100.81.24.80 port 57816 [preauth]
+2026-10-19T18:56:16.827697-05:00 User7951-PC sshd[4402]: srclimit_penalise: ipv4: new 100.81.24.80/32 deferred penalty of 1 seconds for penalty: connections without attempting authentication
+2026-10-19T18:56:33.788296-05:00 User7951-PC sshd-session[4866]: Connection from 100.81.24.80 port 52371 on 100.126.252.63 port 22 rdomain ""
+2026-10-19T18:56:33.957815-05:00 User7951-PC sshd-session[4866]: Invalid user erde from 100.81.24.80 port 52371
+2026-10-19T18:56:34.015304-05:00 User7951-PC sshd-session[4866]: Connection reset by invalid user erde 100.81.24.80 port 52371 [preauth]
+2026-10-19T18:56:34.017794-05:00 User7951-PC sshd[4402]: srclimit_penalise: ipv4: new 100.81.24.80/32 deferred penalty of 1 seconds for penalty: connections without attempting authentication
+2026-10-19T18:58:19.444089-05:00 User7951-PC sudo: user : TTY=/dev/pts/4 ; PWD=/home/user ; USER=root ; COMMAND=/usr/bin/grep sshd /var/log/auth.log
+2026-10-19T18:58:59.652011-05:00 User7951-PC sudo: user : TTY=/dev/pts/4 ; PWD=/home/user ; USER=root ; COMMAND=/usr/bin/grep sshd /var/log/auth.log

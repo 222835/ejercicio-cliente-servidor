@@ -226,3 +226,5 @@ pki/servidor/*.key
 pki/malos/ca-falsa/*.key
 *.srl
 *.csr
+# Registro de eventos generado al ejecutar
+logs/
