@@ -1,0 +1,138 @@
+Connecting to 100.126.252.63
+CONNECTED(00000194)
+depth=2 C=MX, O=Proyecto CS, CN=Proyecto Root CA
+verify return:1
+depth=1 C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+verify return:1
+depth=0 C=MX, O=Proyecto CS, CN=222835-cliente-servidor.duckdns.org
+verify return:1
+---
+Certificate chain
+ 0 s:C=MX, O=Proyecto CS, CN=222835-cliente-servidor.duckdns.org
+   i:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   a:PKEY: rsaEncryption, 2048 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Oct 19 09:56:14 2026 GMT; NotAfter: Oct 19 09:56:14 2027 GMT
+ 1 s:C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+   i:C=MX, O=Proyecto CS, CN=Proyecto Root CA
+   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Oct 19 09:51:54 2026 GMT; NotAfter: Oct 18 09:51:54 2031 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIEyTCCArGgAwIBAgIUD63ZOQoaoh3f5EFf23EnlBrrhUMwDQYJKoZIhvcNAQEL
+BQAwRjELMAkGA1UEBhMCTVgxFDASBgNVBAoMC1Byb3llY3RvIENTMSEwHwYDVQQD
+DBhQcm95ZWN0byBJbnRlcm1lZGlhdGUgQ0EwHhcNMjYxMDE5MDk1NjE0WhcNMjcx
+MDE5MDk1NjE0WjBRMQswCQYDVQQGEwJNWDEUMBIGA1UECgwLUHJveWVjdG8gQ1Mx
+LDAqBgNVBAMMIzIyMjgzNS1jbGllbnRlLXNlcnZpZG9yLmR1Y2tkbnMub3JnMIIB
+IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAy54/on/8sOKpkxiaxSvBUYdR
+TB76EoURiMm31+rCn6fYv2g6eTBakq/PkFihvfX83hAzglZSk6PlMa62TT0BwEwh
+VpnBJIdak5eIoW8/vxwtRkRJF1Zk6JGxZ/tt4UkxHHfBtUL845RLXbAxR6XddCAN
++USSSs11PRxKNU7lVFeXA2pH0+B1Ar24Drb6MiFcnaURl74VcpmGI1VSMaRHOVyl
+Yoyx98+lH/rXvW16p7uOV89hDCWhoyTXVQ93ppIFzZxzgpsWZ/zUT/WZ5t6up5bd
+Ry5E/V8FNOv8cUHBCvjb2dS4CqID+zx6bXDe2iPmzW3bTXN6cj8kzccEBN43BQID
+AQABo4GjMIGgMAkGA1UdEwQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG
+CCsGAQUFBwMBMC4GA1UdEQQnMCWCIzIyMjgzNS1jbGllbnRlLXNlcnZpZG9yLmR1
+Y2tkbnMub3JnMB0GA1UdDgQWBBTVSUOO3tZ9Eaf9EP6+zvZ2Jj2tFzAfBgNVHSME
+GDAWgBR6ebUvT4LNyYjBK9RKGbAnY44mkTANBgkqhkiG9w0BAQsFAAOCAgEAQBA8
+m19GtIESOGkkthtaSnMcsoEjs9EOzT6PNsifPEjgrGYj7M4tHIn34YacN0Jfbvvn
+qO3vaQZduVf01TjsDAousSQjCS1NIAniarkF1FXZexo+UHxfVVJxYxO8mlG+7KmL
+tWlcdKAna2vytr1jlOS4hyuIkN00Vq4RpKaZd6dPIlJnx7ueaXGrmX7+csB2z3+r
+fmq4dEr1GLmFilYd3kMD1Hc5L7YlplG5+5JkHCnAhr0ViXonb7yGTW0DofZKaxN/
+5xuJ7/GRubUtw3zQmcCdzrPYlIrHOt6PpsvurDtxa3nBfYexVlGVTqJibldTV9oh
+DcxhLLMFPpwcPMVLHjKh5FDwd3W+VCp3tb+SPRekfwYLfmWNsoIS9NEZVtBaW38q
+DU0A46WNBYFPJ2emmbFvFh6e6TpFzy4PADbmcLeybGJi87vs0nAbd4nOcdYbB2NJ
+KIB5W5o7vbu8mgy6RL3F9H48SS8HyoFI2ipflVrc1SmZs84f5tSXLCnblbzQGMjr
+OJFL0CFd+4VgYFpyJPvv/x1iJZy+V/Kt4FjbNhhNtH09AcTe7tIXd31EDxrgO+R+
+iFTItlgxGPUR6GbngGC4F1tir6+zA/gPlxo6dH3SNcZxqyDycJ68pZmIHwTL/m2F
+yv5dj8OMIU7M4L5AWz9UherxzbJqmJ0gZwj0tWs=
+-----END CERTIFICATE-----
+subject=C=MX, O=Proyecto CS, CN=222835-cliente-servidor.duckdns.org
+issuer=C=MX, O=Proyecto CS, CN=Proyecto Intermediate CA
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 3216 bytes and written 430 bytes
+Verification: OK
+Verified peername: 222835-cliente-servidor.duckdns.org
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+This TLS version forbids renegotiation.
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 0 (ok)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 9FB33A9E7AD676319254E7782B83398CFD8159138735B582C474897E2C01A6D0
+    Session-ID-ctx: 
+    Resumption PSK: CA8E30125AB74A454DBDEB0078774D181CB51067FE4F5A9338036DFF2D4863AE5AA0D02E6B064F37621EF178FD8E3279
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 18 6a b5 24 43 74 0f 66-93 fc ff eb 73 59 b7 10   .j.$Ct.f....sY..
+    0010 - 0b 3d 03 f8 9e 76 21 42-13 01 0b 5d 06 c3 76 91   .=...v!B...]..v.
+    0020 - 71 6b 18 66 b4 d8 da 55-88 f3 50 66 5d 31 ed 1a   qk.f...U..Pf]1..
+    0030 - 17 b0 5d 9a dd 44 c4 33-cb 25 f4 a7 a8 af 65 d1   ..]..D.3.%....e.
+    0040 - 19 b0 4e d5 13 8d 73 f0-52 ca fc 9f 7c 7e 77 9a   ..N...s.R...|~w.
+    0050 - 40 c8 c6 81 26 6c b4 31-43 b8 ba 79 d0 cb 61 0b   @...&l.1C..y..a.
+    0060 - 66 48 56 f6 53 d4 a0 e5-60 d1 61 fc 26 26 b8 29   fHV.S...`.a.&&.)
+    0070 - 0f e2 af 21 88 3a 6a e4-e5 d7 65 21 7a 48 ab 3b   ...!.:j...e!zH.;
+    0080 - f2 2e 4a 41 97 96 ff b2-e2 de e7 44 1e fb b0 52   ..JA.......D...R
+    0090 - 69 a2 28 3f d2 6a 29 40-22 59 8d 3f 4c 82 fe b6   i.(?.j)@"Y.?L...
+    00a0 - f4 eb 80 f7 7c 24 4a b8-28 0c 72 ac ea 39 4f 5c   ....|$J.(.r..9O\
+    00b0 - 32 fc 90 ed 3d 49 46 a4-e9 03 bb 94 ad dd b1 ec   2...=IF.........
+    00c0 - c6 c2 36 5b cc a1 6b 03-04 19 c5 11 cf aa df 93   ..6[..k.........
+
+    Start Time: 1792465613
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: C4C61B6C17E9FA36BC754DE617C43BC1C693355A32CF5005F52F64EF448310CB
+    Session-ID-ctx: 
+    Resumption PSK: 7D7E59BB78F2652680B42CEFB72CCBF01FB61E9D33945CCB4797CBE55EBA4035B6FF57C054220F3010047EBEEFDD9876
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 7200 (seconds)
+    TLS session ticket:
+    0000 - 18 6a b5 24 43 74 0f 66-93 fc ff eb 73 59 b7 10   .j.$Ct.f....sY..
+    0010 - 31 e5 3d cd df 4d 2d d2-f6 1a 7e fd 0f 9f 1e 11   1.=..M-...~.....
+    0020 - 57 b6 e6 05 a8 8c 18 f8-57 3b 70 9b a6 96 e7 1f   W.......W;p.....
+    0030 - 8a 9e a4 9c 97 4c c2 c3-a2 72 ad 60 58 0f 3e fb   .....L...r.`X.>.
+    0040 - 90 88 61 62 58 aa 0b e8-02 35 48 9f fe 28 e5 c5   ..abX....5H..(..
+    0050 - bb 46 29 64 7a 53 52 32-5f cf 55 ae c0 f2 7b c5   .F)dzSR2_.U...{.
+    0060 - 7f c2 45 b7 38 af 5f 0f-3e c8 ba b8 88 6c 37 8c   ..E.8._.>....l7.
+    0070 - 64 63 a9 1f f9 80 03 30-37 91 3d 63 2a b5 bf 04   dc.....07.=c*...
+    0080 - b9 4a cd 63 9a 31 79 9b-0b 5e 90 4a b7 35 da 8a   .J.c.1y..^.J.5..
+    0090 - b0 cb 3b 7e 59 58 ff 2e-4c a7 ed ba 5a 3c b5 9f   ..;~YX..L...Z<..
+    00a0 - 1b dd 20 32 f2 98 df d6-db 26 04 aa f5 4b bb 37   .. 2.....&...K.7
+    00b0 - 0b 59 0a 2d 94 db 64 59-84 39 09 1c 0f 3a 73 ed   .Y.-..dY.9...:s.
+    00c0 - 66 47 16 14 0d a2 f2 79-e3 a4 53 0a ae a4 e1 78   fG.....y..S....x
+
+    Start Time: 1792465613
+    Timeout   : 7200 (sec)
+    Verify return code: 0 (ok)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+DONE
